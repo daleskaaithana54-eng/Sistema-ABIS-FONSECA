@@ -46,6 +46,36 @@ def mostrar_ventas():
         print("Total:S/", datos[6])
         print("Pago:", datos[7])
         print("Estado:", datos[8])
+def buscar_venta():
+    codigo_buscar = input("Codigo de la venta que buscas: ")
+    lineas=leer_archivo("datos/ventas.txt")
+    encontrado = False
+
+    for linea in lineas:
+        datos = linea.strip().split(";")
+
+        if datos[0] == codigo_buscar.lower():
+            print("\nDETALLE DE LA VENTA")
+            print("Codigo:", datos[0])
+            print("Fecha:", datos[1])
+            print("Cliente:", datos[2])
+            print("Producto:", datos[3])
+            print("Cantidad:", datos[4])
+            print("Precio por unidad: S/", datos[5])
+            print("Total:S/", datos[6])
+            print("Pago:", datos[7])
+            print("Estado:", datos[8])
+
+            encontrado = True
+
+    if encontrado ==False:
+        print("No se encontro una venta con ese codigo.")
+
+def menu_ventas():
+    opcion=""
+
+    if not encontrado:
+        print("Venta no encontrada.")
 
 if __name__ == "__main__":
     menu_ventas()
