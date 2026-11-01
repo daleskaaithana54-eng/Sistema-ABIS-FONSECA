@@ -1,90 +1,51 @@
 #Modulo de ventas
 
-ventas=[]
+from archivos import leer_archivo,guardar_linea
 
-def calcular_subtotal(precio,cantidad):
-    return precio * cantidad
-
-def aplicar_descuento(subtotal,porcentaje):
-    return subtotal *(porcentaje/100)
-
-    
-def calcular_total(subtotal,descuento):
-    return subtotal - descuento
-    
 def registrar_venta():
-    print("\nREGISTRAR VENTA")
+    codigo=input("Codigo de venta: ")
+    fecha=input("Fecha (dd/mm/aaaa): ")
+    cliente=input("Nombre del cliente")
+    producto=input("Producto vendido: ")
+    cantidad=input("Cantidad vendida: ")
+    precio=float(input("Precio por unidad: S/"))
+    total=cantidad * precio
+    metodo=input("Metodo de pago (Efectivo/Yape): ")
 
-    codigo=input("Ingrese el codigo del producto:")
-    producto=input("Ingrese el nombre delproducto:")
-    precio=float(input("Ingrese el precio del producto: "))
-    while precio <= 0:
-        print("El precio debe ser mayor a cero")
-        precio=float(input("Ingrese el precio del producto: "))
-    cantidad=int(input("Ingrese la cantidad: "))
-    while cantidad <= 0:
-        print("La cantidad debe ser mayor a cero")
-        cantidad=int(input("Ingrese la cantidad: "))
-    porcentaje= float(input("Ingrese descuento (%): "))
-    subtotal=calcular_subtotal(precio,cantidad)
-    descuento=aplicar_descuento(subtotal,porcentaje)
-    total=calcular_total(subtotal,descuento)
+    estado= "Regiszstrado"
 
-    venta = {
-        "codigo": codigo,
-        "producto": producto,
-        "precio": precio,
-        "cantidad": cantidad,
-        "subtotal": subtotal,
-        "descuento": descuento,
-        "total": total
-    }
+    if metodo.lower() == "yape":
+        estado = "Por Verificar"
+    texto = codigo + ";" + fecha + ";" + cliente + ";" + producto + ";" + str(cantidad) + ";" + str(precio) + ";" + str(total) + ";" + metodo + ";" + estado
 
-    ventas.append(venta)
-    
-    print("\nVenta registrada correctamente")
-    print("Producto:", producto)
-    print("Subtotal: S/", round(subtotal, 2))
-    print("Descuento: S/", round(descuento, 2))
+    guardar_linea("datos/ventas.txt",texto)
 
-    print("Total: S/", round(total, 2))
+print("\nVenta registrada correctamente.")
+print("Total de la venta: S/", total)
+
+if metodo.lower() == "yape":
+    print("Estado:Por verificar")
+    print("Verifica el pago en la aplicacion de Yape.")
 
 def mostrar_ventas():
-    print("\nLista de ventas")
+    lineas = leer_archivo("datos/ventas.txt")
 
-    if len(ventas) == 0:
-       print("No hay ventas registradas.")
+    print("\nHISTORIAL DE VENTAS")
+
+    if len(lineas) ==0:
+        print("No hay ventas registradas.")
     else:
-        for venta in ventas:
-     
-            print("\nCodigo:", venta["codigo"])
-            print("Producto:", venta["producto"])
-            print("Precio: S/", venta["precio"])
-            print("Cantidad:", venta["cantidad"])
-            print("Subtotal: S/", round (venta["subtotal"], 2))
-            print("Descuento: S/", round (venta["descuento"], 2))
-            print("Total: S/", round (venta["total"], 2))
+        for linea in lineas:
+            datos = linea.strip().split(";")
 
-def menu_ventas():
-        while True:
-            print("\nMENU DE VENTAS")
-            print("1. Registrar venta")
-            print("2. Mostrar ventas")
-            print("3. Regresar al menu principal")
-
-            opcion = input("Seleccione una opcion:")
-
-            if opcion == "1":
-                registrar_venta()
-
-            elif opcion == "2":
-                mostrar_ventas()
-
-            elif opcion == "3":
-                break
-
-            else:
-                print("Opcion invalida. Intente nuevamente.")
+        print("Codigo:", datos[0])
+        print("Fecha:", datos[1])
+        print("Cliente:", datos[2])
+        print("Producto:", datos[3])
+        print("Cantidad:", datos[4])
+        print("Total:S/", datos[6])
+        print("Pago:", datos[7])
+        print("Estado:", datos[8])
 
 if __name__ == "__main__":
     menu_ventas()
