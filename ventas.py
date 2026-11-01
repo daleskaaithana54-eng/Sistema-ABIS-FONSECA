@@ -74,8 +74,24 @@ def buscar_venta():
 def menu_ventas():
     opcion=""
 
-    if not encontrado:
-        print("Venta no encontrada.")
+    while opcion != "4":
+        print("\nMenu de ventas")
+        print("1. Registrar venta")
+        print("2. Ver historial de ventas")
+        print("3. Buscar venta")
+        print("4. Volver al menu principal")
+
+        opcion = input("Selecciona una opcion: ")
+        if opcion == "1":
+            registar_venta()
+        elif opcion == "2":
+            mostrar_venta()
+        elif opcion == "3":
+            buscar_venta()
+        elif opcion == "4":
+            print("Volviendo al menu principal.")
+        else:
+            print("Opcion no valida.")
 
 if __name__ == "__main__":
     menu_ventas()
