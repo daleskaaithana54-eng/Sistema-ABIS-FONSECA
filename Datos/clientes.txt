@@ -1,0 +1,3 @@
+C001;Cliente de mostrador;-
+C002;Marta Ramirez;987324028
+C003;Jose Torres;949234028

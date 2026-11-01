@@ -1,3 +1,3 @@
-from menu import ejecutar_menu
+from menu import menu_principal
 
-ejecutar_menu()
+menu_principal()

@@ -1,63 +1,32 @@
 from ventas import menu_ventas
-from ingresos import registrar_ingreso, calcular_total_ingresos, consultar_ingresos, buscar_ingreso
+from productos import menu_productos
+from clientes import menu_clientes
+from ingresos import menu_ingresos
 
-ingresos = []
+def menu_principal():
+    opcion = ""
 
+    while opcion != "5":
+        print("SISTEMA DE GESTION - ABIS FONSECA")
+        print("Restaurant, Jugueria, Chifa")
+        print("====================================")
+        print("1. Ventas")
+        print("2. Productos")
+        print("3. Clientes")
+        print("4. Ingresos")
+        print("5. Salir")
 
-def mostrar_menu():
-    print("\n" + "=" * 40)
-    print("          SISTEMA DE GESTION")
-    print("=" *  40)
-    print("1. Registrar operaciones de ventas")
-    print("2. Calcular total de ingresos")
-    print("3. Buscar registros")
-    print("4. Leer informacion guardada en archivos y reportes")
-    print("5. Salir del sistema")
-    print("=" * 40)
-
-def ejecutar_menu():
-    while True:
-        mostrar_menu()
-
-        opcion = input("Seleccione una opcion:")
+        opcion = input("Selecciona una opcion: ")
         if opcion == "1":
             menu_ventas()
-            
         elif opcion == "2":
-            while True:
-                print("\nMENU DE INGRESOS")
-                print("1. Registrar ingreso")
-                print("2. Consultar ingresos")
-                print("3. Buscar ingresos")
-                print("4. Regresar al menu principal")
-
-                opcion_ingreso = input("Seleccione una opcion:")
-
-                if opcion_ingreso == "1":
-                    registrar_ingreso(ingresos)
-                elif opcion_ingreso == "2":
-                    consultar_ingresos(ingresos)
-                elif opcion_ingreso == "3":
-                    buscar_ingreso(ingresos)
-                    
-                elif opcion_ingreso == "4":
-                    break
-                else:
-                    print("Opción no valida.")
+            menu_productos()
         elif opcion == "3":
-            print("\nBUSQUEDA DE REGISTROS")
-            buscar_ingreso(ingresos)
-            
+            menu_clientes()
         elif opcion == "4":
-            print("\nLectura de informacion guardada en archivos y reportes")
-            print("Esta opcion se conectara con el modulo de reportes")
-            
+            menu_ingresos()
         elif opcion == "5":
-            print("\nSaliendo del sistema...")
-            
-            break
+            print("Gracias por utilizar el sistema.")
         else:
-            print("\nOpción no valida. Por favor, intente nuevamente.")
-
-if __name__ == "__main__":
-    ejecutar_menu()
+            print("Opcion no valida.")
+            

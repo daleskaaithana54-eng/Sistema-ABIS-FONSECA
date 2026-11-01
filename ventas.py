@@ -14,6 +14,7 @@ def registrar_venta():
 
     estado= "Regiszstrado"
 
+ventas
     if metodo.lower() == "yape":
         estado = "Por Verificar"
     texto = codigo + ";" + fecha + ";" + cliente + ";" + producto + ";" + str(cantidad) + ";" + str(precio) + ";" + str(total) + ";" + metodo + ";" + estado
@@ -26,12 +27,68 @@ print("Total de la venta: S/", total)
 if metodo.lower() == "yape":
     print("Estado:Por verificar")
     print("Verifica el pago en la aplicacion de Yape.")
+    
+def calcular_total(subtotal,descuento):
+    return subtotal - descuento
+    
+def registrar_venta():
+    print("\nREGISTRAR VENTA")
+
+    codigo=input("Ingrese codigo de venta:")
+    producto=input("Ingrese producto:")
+    precio=float(input("Ingrese precio: S/ "))
+    cantidad=int(input("Ingrese cantidad: "))
+    porcentaje= float(input("Ingrese descuento (%): "))
+    subtotal=calcular_subtotal(precio,cantidad)
+    descuento=aplicar_descuento(subtotal,porcentaje)
+    total=calcular_total(subtotal,descuento)
+
+    venta = {
+        "codigo": codigo,
+        "producto": producto,
+        "precio": precio,
+        "cantidad": cantidad,
+        "subtotal": subtotal,
+        "descuento": descuento,
+        "total": total
+    }
+
+    ventas.append(venta)
+    
+    print("\nVenta registrada correctamente")
+    print("Subtotal: S/", subtotal)
+    print("Descuento: S/", descuento)
+    print("Total: S/", total)
+
+def consultar_ventas():
+    print("\nVENTAS REGISTRADAS")
+
+    if len(ventas) == 0:
+       print("No hay ventas registradas.")
+       return
+    for venta in ventas:
+
+        print("\nCodigo:", venta["codigo"])
+        print("Producto:", venta["producto"])
+        print("Precio: S/", venta["precio"])
+        print("Cantidad:", venta["cantidad"])
+        print("Subtotal: S/", venta["subtotal"])
+        print("Descuento: S/", venta["descuento"])
+        print("Total: S/", venta["total"])
+def menu_ventas():
+        while True:
+            print("\nMENU DE VENTAS")
+            print("1. Registrar venta")
+            print("2. Consultar ventas")
+            print("3. Regresar al menu principal")
+main
 
 def mostrar_ventas():
     lineas = leer_archivo("datos/ventas.txt")
 
     print("\nHISTORIAL DE VENTAS")
 
+ventas
     if len(lineas) ==0:
         print("No hay ventas registradas.")
     else:
@@ -71,11 +128,19 @@ def buscar_venta():
     if encontrado ==False:
         print("No se encontro una venta con ese codigo.")
 
+            elif opcion == "2":
+                consultar_ventas()
+
 def menu_ventas():
     opcion=""
 
+    ventas
     if not encontrado:
         print("Venta no encontrada.")
 
+            else:
+                print("Opcion invalida.")
+              
 if __name__ == "__main__":
     menu_ventas()
+
