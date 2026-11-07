@@ -17,7 +17,7 @@ def registrar_cliente():
     print("\nCliente registrado correctamente.")
 
 
-# Conswulta de clientes
+# Consulta de clientes
 
 def consultar_clientes():
     print("\n--- CONSULTA DE CLIENTES ---")
@@ -39,7 +39,41 @@ def consultar_clientes():
                 print("Apellidos:", datos[2])
                 print("Telefono:", datos[3])
     except FileNotFoundError:
+        print("No existe el archivo de clientes.") 
+
+# Busqueda de clientes
+
+def buscar_clientes():
+    print("\n--- BUSQUEDA DE CLIENTES ---")
+
+    dni_buscar = input("Ingrese el DNI del cliente: ")
+    encontrado = False     
+
+    try:
+        archivo = open("clientes.txt", "r", encoding="utf-8")
+        clientes = archivo.readlines()
+        archivo.close()
+
+        for dato in clientes:
+            datos = dato.strip().split(",")
+
+            if datos[0] == dni_buscar:
+                print("\nCliente encontrado")
+                print("DNI:", datos[0])
+                print("Nombre:", datos[1])
+                print("Apellidos:", datos[2])
+                print("Telefono:", datos[3])
+                encontrado = True
+
+    except FileNotFoundError:
         print("No existe el archivo de clientes.")
+        return
+
+    if encontrado == False:
+        print("Cliente no encontrado.")
+
+    
+            
 
 # Menu de clientes 
 
@@ -47,7 +81,8 @@ while True:
     print("\n--- MENU DE CLIENTES ---")
     print("1. Registrar cliente")
     print("2. Consultar clientes")
-    print("3. Salir")
+    print("3. Buscar cliente")
+    print("4. Salir")
 
     opcion = input("Seleccione una opcion: ")
 
@@ -56,6 +91,8 @@ while True:
     elif opcion == "2":
         consultar_clientes()
     elif opcion == "3":
+        buscar_clientes()
+    elif opcion == "4":
         print("Saliendo del programa...")
         break 
     else:
