@@ -36,7 +36,16 @@ def registrar_producto():
             return
 
     nombre = input("Ingrese nombre: ")
-    precio = float(input("Ingrese precio: "))
+    try:
+        precio = float(input("Ingrese precio: "))
+
+        if precio <=0:
+            print("El precio debe ser mayor que cero.")
+            return
+
+    except ValueError:
+        print("Ingrese un precio numerico.")
+        return
 
     nuevo = {
         "codigo": codigo,
@@ -77,8 +86,21 @@ def actualizar_producto():
 
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
-            producto["nombre"] = input("nuevo nombre: ")
-            producto["precio"] = float(input("nuevo precio: "))
+            nombre = input("nuevo nombre: ")
+            
+            try:
+                precio=float(input("nuevo precio: "))
+
+                if precio <=0:
+                    print("El precio debe ser mayor que cero.")
+                    return
+
+            except ValueError:
+                print("Ingrese un precio numerico.")
+                return
+            
+            producto["nombre"] = nombre
+            producto["precio"] = precio
 
             print("Producto actualizado correctamente.")
             return
