@@ -28,7 +28,7 @@ PRODUCTOS = [
 def registrar_producto():
     print("\n---- REGISTRAR PRODUCTO ---")
 
-    codigo = input("Ingrese codigo: ")
+    codigo = input("Ingrese codigo: ").upper().strip()
 
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
@@ -57,7 +57,7 @@ def consultar_productos():
 def buscar_producto():
     print("\n---- BUSCAR PRODUCTO ---")
 
-    codigo = input("Ingrese codigo del producto: ")
+    codigo = input("Ingrese codigo del producto: ").upper().strip()
 
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
@@ -73,7 +73,7 @@ def buscar_producto():
 def actualizar_producto():
     print("\n---- ACTUALIZAR PRODUCTO ---")
 
-    codigo = input("Ingrese codigo: ")
+    codigo = input("Ingrese codigo: ")upper().strip()
 
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
@@ -90,7 +90,7 @@ def actualizar_producto():
 def eliminar_producto():
     print("\n---- ELIMINAR PRODUCTO ---")
 
-    codigo = input("Ingrese codigo: ")
+    codigo = input("Ingrese codigo: ").upper().strip()
 
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
