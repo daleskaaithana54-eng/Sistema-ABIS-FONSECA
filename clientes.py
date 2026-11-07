@@ -72,9 +72,23 @@ def buscar_clientes():
     if encontrado == False:
         print("Cliente no encontrado.")
 
-    
-            
+# Contar clientes registrados 
 
+def contar_clientes():
+    print("\n--- TOTAL DE CLIENTES ---")
+
+    try: 
+        archivo = open("clientes.txt", "r", encoding="utf-8")
+
+        clientes = archivo.readlines()
+        archivo.close()
+
+        print("Cantidad de clientes registrados:", len(clientes))
+
+    except FileNotFoundError:
+     print("No hay clientes registrados.")
+
+    
 # Menu de clientes 
 
 while True:
@@ -82,7 +96,8 @@ while True:
     print("1. Registrar cliente")
     print("2. Consultar clientes")
     print("3. Buscar cliente")
-    print("4. Salir")
+    print("4. Contar clientes")
+    print("5. salir")
 
     opcion = input("Seleccione una opcion: ")
 
@@ -93,6 +108,8 @@ while True:
     elif opcion == "3":
         buscar_clientes()
     elif opcion == "4":
+        contar_clientes()
+    elif opcion == "5":
         print("Saliendo del programa...")
         break 
     else:
