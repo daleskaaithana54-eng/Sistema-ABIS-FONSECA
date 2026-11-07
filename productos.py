@@ -142,7 +142,7 @@ def mostrar_menu():
             eliminar_producto()
 
         elif opcion == "6":
-            mostrar_menu()
+            menu_productos()
 
         elif opcion == "7":
             print("Saliendo del modulo de productos.")
@@ -152,4 +152,4 @@ def mostrar_menu():
             print("Opcion incorrecta.")
 
 if __name__ == "__main__":
-    menu_productos()
+    mostrar_menu()
