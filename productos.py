@@ -73,7 +73,7 @@ def buscar_producto():
 def actualizar_producto():
     print("\n---- ACTUALIZAR PRODUCTO ---")
 
-    codigo = input("Ingrese codigo: ")upper().strip()
+    codigo = input("Ingrese codigo: ").upper().strip()
 
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
