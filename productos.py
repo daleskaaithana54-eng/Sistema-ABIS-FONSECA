@@ -83,6 +83,10 @@ def buscar_producto():
 
     codigo = input("Ingrese codigo del producto: ").upper().strip()
 
+    if codigo == "":
+        print("Debe ingresar un codigo.")
+        return
+        
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
             print("Codigo:", producto["codigo"])
