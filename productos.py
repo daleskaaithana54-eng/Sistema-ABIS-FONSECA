@@ -68,6 +68,12 @@ def registrar_producto():
 def consultar_productos():
     print("\n---- PRODUCTOS REGISTRADOS ---")
     
+    if len(PRODUCTOS) == 0:
+        print("No hay productos registrados.")
+        return
+
+    print("Total de productos:", len(PRODUCTOS))
+
     for producto in PRODUCTOS:
         print(producto["codigo"],"-", producto["nombre"],"-S/", format(producto["precio"], ".2f"))
 
