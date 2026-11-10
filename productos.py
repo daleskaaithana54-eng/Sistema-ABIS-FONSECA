@@ -96,6 +96,10 @@ def actualizar_producto():
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
             nombre = input("nuevo nombre: ").strip()
+
+            if nombre == "":
+                print("Debe ingresar un nombre.")
+                return
             
             if nombre == "":
                 print("Debe ingresar un nombre.")
