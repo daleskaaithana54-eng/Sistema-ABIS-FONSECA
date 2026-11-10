@@ -86,7 +86,7 @@ def buscar_producto():
     if codigo == "":
         print("Debe ingresar un codigo.")
         return
-        
+
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
             print("Codigo:", producto["codigo"])
@@ -141,6 +141,10 @@ def eliminar_producto():
 
     codigo = input("Ingrese codigo: ").upper().strip()
 
+    if codigo == "":
+        print("Debe ingresar un codigo.")
+        return
+        
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
             PRODUCTOS.remove(producto)
