@@ -29,6 +29,10 @@ def registrar_producto():
     print("\n---- REGISTRAR PRODUCTO ---")
 
     codigo = input("Ingrese codigo: ").upper().strip()
+    
+    if codigo == "":
+        print("Debe ingresar un codigo.")
+        return
 
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
