@@ -103,6 +103,10 @@ def actualizar_producto():
 
     codigo = input("Ingrese codigo: ").upper().strip()
 
+    if codigo == "":
+        print("Debe ingresar un codigo.")
+        return
+
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
             nombre = input("nuevo nombre: ").strip()
