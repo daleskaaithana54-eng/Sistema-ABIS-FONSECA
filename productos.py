@@ -144,17 +144,22 @@ def eliminar_producto():
     if codigo == "":
         print("Debe ingresar un codigo.")
         return
-        
+
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
-            PRODUCTOS.remove(producto)
-            print("Producto eliminado correctamente.")
+            respuesta = input("¿Desea eliminar el producto? (S/N): ").upper().strip()
+           
+            if respuesta == "S":
+                PRODUCTOS.remove(producto)
+                print("Producto eliminado correctamente.")
+            else:
+                print("Eliminacion cancelada.")
+            
             return
 
     print("Producto no encontrado.")
 
-
-#MOSTRAR MENU DE PRODUCTOS
+    #MOSTRAR MENU DE PRODUCTOS
 def menu_productos():
     print("\n---- MENU DE PRODUCTOS ---")
 
