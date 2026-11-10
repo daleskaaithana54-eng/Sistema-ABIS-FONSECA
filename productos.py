@@ -29,13 +29,22 @@ def registrar_producto():
     print("\n---- REGISTRAR PRODUCTO ---")
 
     codigo = input("Ingrese codigo: ").upper().strip()
+    
+    if codigo == "":
+        print("Debe ingresar un codigo.")
+        return
 
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
             print("El producto ya existe.")
             return
 
-    nombre = input("Ingrese nombre: ")
+    nombre = input("Ingrese nombre: ").strip()
+
+    if nombre == "":
+        print("Debe ingresar un nombre.")
+        return
+
     try:
         precio = float(input("Ingrese precio: "))
 
@@ -59,8 +68,14 @@ def registrar_producto():
 def consultar_productos():
     print("\n---- PRODUCTOS REGISTRADOS ---")
     
+    if len(PRODUCTOS) == 0:
+        print("No hay productos registrados.")
+        return
+
+    print("Total de productos:", len(PRODUCTOS))
+
     for producto in PRODUCTOS:
-        print(producto["codigo"],"-", producto["nombre"],"-S/", producto["precio"])
+        print(producto["codigo"],"-", producto["nombre"],"-S/", format(producto["precio"], ".2f"))
 
 #BUSCAR PRODUCTO
 def buscar_producto():
@@ -68,11 +83,15 @@ def buscar_producto():
 
     codigo = input("Ingrese codigo del producto: ").upper().strip()
 
+    if codigo == "":
+        print("Debe ingresar un codigo.")
+        return
+
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
             print("Codigo:", producto["codigo"])
             print("Nombre:", producto["nombre"])
-            print("Precio: S/", producto["precio"])
+            print("Precio: S/", format(producto["precio"], ".2f"))
             return
 
     print("Producto no encontrado.")
@@ -84,10 +103,22 @@ def actualizar_producto():
 
     codigo = input("Ingrese codigo: ").upper().strip()
 
+    if codigo == "":
+        print("Debe ingresar un codigo.")
+        return
+
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
-            nombre = input("nuevo nombre: ")
+            nombre = input("nuevo nombre: ").strip()
+
+            if nombre == "":
+                print("Debe ingresar un nombre.")
+                return
             
+            if nombre == "":
+                print("Debe ingresar un nombre.")
+                return
+
             try:
                 precio=float(input("nuevo precio: "))
 
@@ -114,21 +145,34 @@ def eliminar_producto():
 
     codigo = input("Ingrese codigo: ").upper().strip()
 
+    if codigo == "":
+        print("Debe ingresar un codigo.")
+        return
+
     for producto in PRODUCTOS:
         if producto["codigo"] == codigo:
-            PRODUCTOS.remove(producto)
-            print("Producto eliminado correctamente.")
+            respuesta = input("¿Desea eliminar el producto? (S/N): ").upper().strip()
+           
+            if respuesta == "S":
+                PRODUCTOS.remove(producto)
+                print("Producto eliminado correctamente.")
+            else:
+                print("Eliminacion cancelada.")
+            
             return
 
     print("Producto no encontrado.")
 
-
-#MOSTRAR MENU DE PRODUCTOS
+    #MOSTRAR MENU DE PRODUCTOS
 def menu_productos():
     print("\n---- MENU DE PRODUCTOS ---")
 
+    if len(PRODUCTOS) == 0:
+        print("No hay productos registrados.")
+        return
+   
     for producto in PRODUCTOS:
-        print(producto["codigo"],"-", producto["nombre"],"-S/", producto["precio"])
+        print(producto["codigo"],"-", producto["nombre"],"-S/", format(producto["precio"], ".2f"))
 
 
 #MENU PRINCIPAL DE PRODUCTOS
