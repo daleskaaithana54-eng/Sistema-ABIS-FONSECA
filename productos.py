@@ -69,7 +69,7 @@ def consultar_productos():
     print("\n---- PRODUCTOS REGISTRADOS ---")
     
     for producto in PRODUCTOS:
-        print(producto["codigo"],"-", producto["nombre"],"-S/", producto["precio"])
+        print(producto["codigo"],"-", producto["nombre"],"-S/", format(producto["precio"], ".2f"))
 
 #BUSCAR PRODUCTO
 def buscar_producto():
@@ -81,7 +81,7 @@ def buscar_producto():
         if producto["codigo"] == codigo:
             print("Codigo:", producto["codigo"])
             print("Nombre:", producto["nombre"])
-            print("Precio: S/", producto["precio"])
+            print("Precio: S/", format(producto["precio"], ".2f"))
             return
 
     print("Producto no encontrado.")
@@ -145,7 +145,7 @@ def menu_productos():
     print("\n---- MENU DE PRODUCTOS ---")
 
     for producto in PRODUCTOS:
-        print(producto["codigo"],"-", producto["nombre"],"-S/", producto["precio"])
+        print(producto["codigo"],"-", producto["nombre"],"-S/", format(producto["precio"], ".2f"))
 
 
 #MENU PRINCIPAL DE PRODUCTOS
