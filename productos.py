@@ -167,6 +167,10 @@ def eliminar_producto():
 def menu_productos():
     print("\n---- MENU DE PRODUCTOS ---")
 
+    if len(PRODUCTOS) == 0:
+        print("No hay productos registrados.")
+        return
+   
     for producto in PRODUCTOS:
         print(producto["codigo"],"-", producto["nombre"],"-S/", format(producto["precio"], ".2f"))
 
