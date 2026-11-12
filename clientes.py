@@ -88,7 +88,44 @@ def contar_clientes():
     except FileNotFoundError:
      print("No hay clientes registrados.")
 
-    
+# Actualizar clientes 
+ 
+def actualizar_clientes():
+    print("\n--- ACTUALIZAR CLIENTE ---")
+    dni_buscar = input("Ingrese el DNI del cliente: ")
+    encontrado = False
+
+    try:
+        archivo = open("clientes.txt", "r", encoding="utf-8")
+        clientes = archivo.readlines()
+        archivo.close()
+
+        for i in range(len(clientes)):
+            datos = clientes[i].strip().split(",")
+
+            if datos[0] == dni_buscar:
+                print("Cliente encontrado")
+
+                nombre = input("Nuevo nombre: ")
+                apellido = input("Nuevo apelledo: ")
+                telefono = input("Nuevo telefono: ")
+
+                clientes[i] = dni_buscar + "," + nombre + "," + apellido + "," + telefono + "\n"
+
+                encontrado = True
+                break 
+        if encontrado == True:
+            archivo = open("clientes.txt", "w", encoding="utf-8")
+            archivo.writelines(clientes)
+            archivo.close()
+
+            print("Cliente actualizado correctamente.")
+        else:
+            print("Cliente no encontrado.")
+
+    except FileNotFoundError:
+        print("No existe el archivo de clientes.")  
+
 # Menu de clientes 
 
 while True:
@@ -97,7 +134,8 @@ while True:
     print("2. Consultar clientes")
     print("3. Buscar cliente")
     print("4. Contar clientes")
-    print("5. salir")
+    print("5. Actualizar clientes")
+    print("6. Salir")
 
     opcion = input("Seleccione una opcion: ")
 
@@ -110,6 +148,8 @@ while True:
     elif opcion == "4":
         contar_clientes()
     elif opcion == "5":
+        actualizar_clientes()
+    elif opcion == "6":
         print("Saliendo del programa...")
         break 
     else:
