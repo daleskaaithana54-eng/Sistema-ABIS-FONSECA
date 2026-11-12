@@ -126,6 +126,40 @@ def actualizar_clientes():
     except FileNotFoundError:
         print("No existe el archivo de clientes.")  
 
+# Eliminar clientes
+
+def eliminar_cliente():
+    print("\n--- ELIMINAR CLIENTE ---")
+
+    dni_buscar = input("Ingrese el DNI del cliente: ")
+    encontrado = False
+    nuevos_clientes = []
+
+    try:
+        archivo = open("clientes.txt", "r", encoding="utf-8")
+        cliente = archivo.readlines()
+        archivo.close()
+
+        for dato in cliente:
+            datos = dato.strip().split(",")
+
+            if datos[0] == dni_buscar:
+                encontrado = True
+            else:
+                nuevos_clientes.append(dato)
+
+        if encontrado == True:
+            archivo = open("clientes.txt", "w", encoding="utf-8")
+            archivo.writelines(nuevos_clientes)
+            archivo.close()
+
+            print("Cliente eliminado correctamente.")
+        else: 
+            print("Cliente no encontrado.")
+
+    except FileNotFoundError:
+        print("No existe el archivo de clientes.")
+
 # Menu de clientes 
 
 while True:
@@ -135,7 +169,8 @@ while True:
     print("3. Buscar cliente")
     print("4. Contar clientes")
     print("5. Actualizar clientes")
-    print("6. Salir")
+    print("6. Eliminar cliente")
+    print("7. Salir")
 
     opcion = input("Seleccione una opcion: ")
 
@@ -150,7 +185,10 @@ while True:
     elif opcion == "5":
         actualizar_clientes()
     elif opcion == "6":
+        eliminar_cliente()
+    elif opcion == "7":
         print("Saliendo del programa...")
         break 
     else:
-        print("opcion incorrecta.")    
+        print("opcion incorrecta.") 
+        break    
