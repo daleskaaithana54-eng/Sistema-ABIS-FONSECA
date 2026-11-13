@@ -1,12 +1,56 @@
+# Validar DNI
+
+def validar_dni(dni):
+    if len(dni) == 8 and dni.isdigit():
+        return True
+    else:
+        return False
+
+# Validar nombres y apellidos 
+
+def validar_nombre(nombre):
+    if nombre.replace(" ", "").isalpha():
+        return True 
+    else: 
+        return False
+
+# Validar telefono 
+
+def validar_telefono(telefono):
+    if len(telefono) == 9 and telefono.isdigit():
+        return True
+    else:
+        return False
+    
 # Registro de clientes
 
 def registrar_cliente():
     print("\n--- REGISTRO DE CLIENTES ---")
     
     dni = input("Ingrese el DNI del cliente: ")
+
+    while validar_dni(dni) == False:
+         print("El DNI debe tener 8 numeros. ")
+         dni = input("Ingrese nuevamente el DNI: ")
+
     nombre = input("Ingrese el nombre del cliente: ")
+
+    while validar_nombre(nombre) == False:
+        print("Ingrese solamente letras.")
+        nombre = input("Ingrese nuevamente el nombre: ")
+
     apellido = input("Ingrese el apellido del cliente: ")
+
+    while validar_nombre(apellido) == False:
+        print("Ingrese solamente letras. ")
+        apellido = input("Ingrese nuevamente el apellido: ")
+
+
     telefono = input("Ingrese el teléfono del cliente: ")
+
+    while validar_telefono(telefono) == False:
+        print("El telefono debe tener 9 numeros. ")
+        telefono = input("Ingrese nuevamente el telefono: ")
 
     archivo = open("clientes.txt", "a", encoding="utf-8")
 
