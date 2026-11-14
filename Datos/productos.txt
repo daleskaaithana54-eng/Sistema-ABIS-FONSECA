@@ -4,3 +4,4 @@ P003;Menu del dia;11.00
 P004;Jugo de papaya;8.00
 P005;Pollo broaster;15.00
 P006;Caldo de gallina;10.00
+P007;Salchipapa;12

@@ -45,14 +45,15 @@ def consultar_ventas():
         print("Estado:" , datos[8])
 
 def buscar_venta():
-    codigo_buscar = input("Codigo de la venta que buscas: ")
+    codigo_buscar = input("Codigo de la venta que buscas: ").strip().lower()
     lineas=leer_archivo("datos/ventas.txt")
     encontrado = False
 
     for linea in lineas:
+        if linea.strip() =="":
+            continue
         datos = linea.strip().split(";")
-
-        if datos[0] == codigo_buscar.lower():
+        if datos[0].strip().lower() == codigo_buscar:
             print("\nDETALLE DE LA VENTA")
             print("Codigo:", datos[0])
             print("Fecha:", datos[1])
