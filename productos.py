@@ -1,243 +1,221 @@
-# Modulo de gestion de gastos
+# MODULO DE GESTION DE PRODUCTOS 
 
-gastos = []
+PRODUCTOS = [ 
+    {"codigo": "P001", "nombre": "Lomo saltado", "precio": 18.00},
+    {"codigo": "P002", "nombre": "Arroz chaufa", "precio": 14.00},
+    {"codigo": "P003", "nombre": "Menu del dia", "precio": 11.00},
+    {"codigo": "P004", "nombre": "Jugo de papaya", "precio": 8.00},
+    {"codigo": "P005", "nombre": "Jugo de fresa", "precio": 8.00},
+    {"codigo": "P006", "nombre": "pollo broaster", "precio": 15.00},
+    {"codigo": "P007", "nombre": "Caldo de gallina", "precio": 10.00},
+    {"codigo": "P008", "nombre": "Ceviche", "precio": 20.00},
+    {"codigo": "P009", "nombre": "Aji de gallina", "precio": 17.00},
+    {"codigo": "P010", "nombre": "Arroz con pollo", "precio": 15.00},
+    {"codigo": "P011", "nombre": "Papa a la huancaina", "precio": 9.00},
+    {"codigo": "P012", "nombre": "Anticuchos", "precio": 12.00},
+    {"codigo": "P013", "nombre": "Chicharron de pollo", "precio": 16.00},
+    {"codigo": "P014", "nombre": "salchipapa", "precio": 12.00},
+    {"codigo": "P015", "nombre": "Pollo al horno", "precio": 12.00},
+    {"codigo": "P016", "nombre": "Inka cola", "precio": 5.00},
+    {"codigo": "P017", "nombre": "Coca cola", "precio": 5.00},
+    {"codigo": "P018", "nombre": "Limonada", "precio": 5.00},
+    {"codigo": "P019", "nombre": "Jugo de naranja", "precio": 8.00},
+    {"codigo": "P020", "nombre": "Cafe pasado", "precio": 4.00},
+]
 
 
-def registrar_gasto():
-    print("\n--- REGISTRAR GASTO ---")
+# REGISTRAR PRODUCTO
+def registrar_producto():
+    print("\n---- REGISTRAR PRODUCTO ---")
 
-    descripcion = input("Ingrese la descripcion del gasto: ").strip()
+    codigo = input("Ingrese codigo: ").upper().strip()
+    
+    if codigo == "":
+        print("Debe ingresar un codigo.")
+        return
 
-    if not descripcion:
-        print("Error: la descripcion no puede estar vacia.")
+    for producto in PRODUCTOS:
+        if producto["codigo"] == codigo:
+            print("El producto ya existe.")
+            return
+
+    nombre = input("Ingrese nombre: ").strip()
+
+    if nombre == "":
+        print("Debe ingresar un nombre.")
         return
 
     try:
-        monto = float(input("Ingrese el monto del gasto: S/ "))
+        precio = float(input("Ingrese precio: "))
 
-        if monto <= 0:
-            print("Error: el monto debe ser mayor que cero.")
+        if precio <=0:
+            print("El precio debe ser mayor que cero.")
             return
 
     except ValueError:
-        print("Error: ingrese un monto numerico valido.")
+        print("Ingrese un precio numerico.")
         return
 
-    gasto = {
-        "descripcion": descripcion,
-        "monto": monto
+    nuevo = {
+        "codigo": codigo,
+        "nombre": nombre,
+        "precio": precio
     }
+    PRODUCTOS.append(nuevo)
+    print("Producto registrado correctamente.")
 
-    gastos.append(gasto)
-    print("Gasto registrado correctamente.")
-
-
-def consultar_gastos():
-    print("\n--- GASTOS REGISTRADOS ---")
-
-    if not gastos:
-        print("No hay gastos registrados.")
+# CONSULTAR PRODUCTOS
+def consultar_productos():
+    print("\n---- PRODUCTOS REGISTRADOS ---")
+    
+    if len(PRODUCTOS) == 0:
+        print("No hay productos registrados.")
         return
 
-    for i, gasto in enumerate(gastos, start=1):
-        print(f"{i}. Descripcion: {gasto['descripcion']}")
-        print(f"   Monto: S/ {gasto['monto']:.2f}")
+    print("Total de productos:", len(PRODUCTOS))
 
-    print(f"Total de gastos: S/ {calcular_total_gastos():.2f}")
+    for producto in PRODUCTOS:
+        print(producto["codigo"],"-", producto["nombre"],"-S/", format(producto["precio"], ".2f"))
 
+#BUSCAR PRODUCTO
+def buscar_producto():
+    print("\n---- BUSCAR PRODUCTO ---")
 
-def calcular_total_gastos():
-    total = 0
+    codigo = input("Ingrese codigo del producto: ").upper().strip()
 
-    for gasto in gastos:
-        total += gasto["monto"]
-
-    return total
-def buscar_gasto():
-    print("\n--- BUSCAR GASTO ---")
-
-    if not gastos:
-        print("No hay gastos registrados.")
+    if codigo == "":
+        print("Debe ingresar un codigo.")
         return
 
-    busqueda = input(
-        "Ingrese la descripcion que desea buscar: "
-    ).strip().lower()
+    for producto in PRODUCTOS:
+        if producto["codigo"] == codigo:
+            print("Codigo:", producto["codigo"])
+            print("Nombre:", producto["nombre"])
+            print("Precio: S/", format(producto["precio"], ".2f"))
+            return
 
-    if not busqueda:
-        print("Error: la busqueda no puede estar vacia.")
+    print("Producto no encontrado.")
+
+
+#ACTUALIZAR PRODUCTO
+def actualizar_producto():
+    print("\n---- ACTUALIZAR PRODUCTO ---")
+
+    codigo = input("Ingrese codigo: ").upper().strip()
+
+    if codigo == "":
+        print("Debe ingresar un codigo.")
         return
 
-    encontrados = [
-        gasto for gasto in gastos
-        if busqueda in gasto["descripcion"].lower()
-    ]
+    for producto in PRODUCTOS:
+        if producto["codigo"] == codigo:
+            nombre = input("nuevo nombre: ").strip()
 
-    if not encontrados:
-        print("No se encontraron gastos con esa descripcion.")
+            if nombre == "":
+                print("Debe ingresar un nombre.")
+                return
+            
+            if nombre == "":
+                print("Debe ingresar un nombre.")
+                return
+
+            try:
+                precio=float(input("nuevo precio: "))
+
+                if precio <=0:
+                    print("El precio debe ser mayor que cero.")
+                    return
+
+            except ValueError:
+                print("Ingrese un precio numerico.")
+                return
+            
+            producto["nombre"] = nombre
+            producto["precio"] = precio
+
+            print("Producto actualizado correctamente.")
+            return
+
+    print("Producto no encontrado.")
+
+
+#ELIMINAR PRODUCTO
+def eliminar_producto():
+    print("\n---- ELIMINAR PRODUCTO ---")
+
+    codigo = input("Ingrese codigo: ").upper().strip()
+
+    if codigo == "":
+        print("Debe ingresar un codigo.")
         return
 
-    print("\n--- RESULTADOS DE LA BUSQUEDA ---")
+    for producto in PRODUCTOS:
+        if producto["codigo"] == codigo:
+            respuesta = input("¿Desea eliminar el producto? (S/N): ").upper().strip()
+           
+            if respuesta == "S":
+                PRODUCTOS.remove(producto)
+                print("Producto eliminado correctamente.")
+            else:
+                print("Eliminacion cancelada.")
+            
+            return
 
-    for i, gasto in enumerate(encontrados, start=1):
-        print(f"{i}. Descripcion: {gasto['descripcion']}")
-        print(f"   Monto: S/ {gasto['monto']:.2f}")
+    print("Producto no encontrado.")
 
-    total = sum(gasto["monto"] for gasto in encontrados)
-    print(f"Total encontrado: S/ {total:.2f}")
-def mostrar_resumen_gastos():
-    print("\n--- RESUMEN DE GASTOS ---")
+    #MOSTRAR MENU DE PRODUCTOS
+def menu_productos():
+    print("\n---- MENU DE PRODUCTOS ---")
 
-    cantidad = len(gastos)
-
-    if cantidad == 0:
-        print("No hay gastos registrados para generar el resumen.")
+    if len(PRODUCTOS) == 0:
+        print("No hay productos registrados.")
         return
+   
+    for producto in PRODUCTOS:
+        print(producto["codigo"],"-", producto["nombre"],"-S/", format(producto["precio"], ".2f"))
 
-    total = calcular_total_gastos()
-    promedio = total / cantidad
 
-    print(f"Cantidad de gastos: {cantidad}")
-    print(f"Total acumulado: S/ {total:.2f}")
-    print(f"Promedio por gasto: S/ {promedio:.2f}")
-def menu_gastos():
+#MENU PRINCIPAL DE PRODUCTOS
+def mostrar_menu():
+ 
     while True:
-        print("\n--- MENU DE GASTOS ---")
-        print("1. Registrar gasto")
-        print("2. Consultar gastos")
-        print("3. Calcular total de gastos")
-        print("4. Salir")
+        print("\n================================")
+        print("        GESTION DE PRODUCTOS")
+        print("================================")
+        print("1. Registrar producto")
+        print("2. Consultar productos")
+        print("3. Buscar producto")
+        print("4. Actualizar producto")
+        print("5. Eliminar producto")
+        print("6. Mostrar menu del restaurante")
+        print("7. Salir")
 
-        opcion = input("Seleccione una opcion: ").strip()
+        opcion = input("Selecciona una opcion: ")
 
         if opcion == "1":
-            registrar_gasto()
+            registrar_producto()
+
         elif opcion == "2":
-            consultar_gastos()
+            consultar_productos()
+
         elif opcion == "3":
-            print(
-                f"Total de gastos: S/ "
-                f"{calcular_total_gastos():.2f}"
-            )
+            buscar_producto()
+
         elif opcion == "4":
+            actualizar_producto()
+
+        elif opcion == "5":
+            eliminar_producto()
+
+        elif opcion == "6":
+            menu_productos()
+
+        elif opcion == "7":
+            print("Saliendo del modulo de productos.")
             break
+
         else:
-            print("Opcion no valida. Intente nuevamente.")
-     
-# ==============================
-# PRUEBAS AUTOMATIZADAS DE GASTOS
-# ==============================
-
-import unittest
-from unittest.mock import patch
-
-
-class TestModuloGastos(unittest.TestCase):
-
-    def setUp(self):
-        gastos.clear()
-
-    @patch("builtins.input", side_effect=["Pasajes", "12.50"])
-    def test_registrar_gasto_valido(self, mock_input):
-        registrar_gasto()
-        self.assertEqual(len(gastos), 1)
-        self.assertEqual(gastos[0]["descripcion"], "Pasajes")
-        self.assertEqual(gastos[0]["monto"], 12.50)
-
-    @patch("builtins.input", side_effect=["", "12.50"])
-    def test_rechazar_descripcion_vacia(self, mock_input):
-        registrar_gasto()
-        self.assertEqual(len(gastos), 0)
-
-    @patch("builtins.input", side_effect=["Pasajes", "abc"])
-    def test_rechazar_monto_no_numerico(self, mock_input):
-        registrar_gasto()
-        self.assertEqual(len(gastos), 0)
-
-    @patch("builtins.input", side_effect=["Pasajes", "0"])
-    def test_rechazar_monto_cero(self, mock_input):
-        registrar_gasto()
-        self.assertEqual(len(gastos), 0)
-
-    @patch("builtins.input", side_effect=["Pasajes", "-5"])
-    def test_rechazar_monto_negativo(self, mock_input):
-        registrar_gasto()
-        self.assertEqual(len(gastos), 0)
-
-    def test_calcular_total_gastos(self):
-        gastos.extend([
-            {"descripcion": "Pasajes", "monto": 12.50},
-            {"descripcion": "Materiales", "monto": 7.50}
-        ])
-        self.assertEqual(calcular_total_gastos(), 20.00)
-
-    def test_total_sin_gastos(self):
-        self.assertEqual(calcular_total_gastos(), 0)
-
-    @patch("builtins.input", side_effect=["pas"])
-    def test_buscar_gasto_por_coincidencia(self, mock_input):
-        gastos.extend([
-            {"descripcion": "Pasajes", "monto": 12.50},
-            {"descripcion": "Materiales", "monto": 7.50}
-        ])
-
-        buscar_gasto()
-
-        self.assertEqual(len(gastos), 2)
-
-    @patch("builtins.input", side_effect=[""])
-    def test_buscar_gasto_con_busqueda_vacia(self, mock_input):
-        gastos.append({"descripcion": "Pasajes", "monto": 12.50})
-
-        buscar_gasto()
-
-        self.assertEqual(len(gastos), 1)
-
-    @patch("builtins.input", side_effect=["comida"])
-    def test_buscar_gasto_sin_coincidencias(self, mock_input):
-        gastos.append({"descripcion": "Pasajes", "monto": 12.50})
-
-        buscar_gasto()
-
-        self.assertEqual(len(gastos), 1)
-    def test_resumen_con_gastos(self):
-        gastos.extend([
-            {"descripcion": "Pasajes", "monto": 12.50},
-            {"descripcion": "Materiales", "monto": 7.50}
-        ])
-
-        with patch("builtins.print") as mock_print:
-            mostrar_resumen_gastos()
-
-        mensajes = [
-            llamada.args[0]
-            for llamada in mock_print.call_args_list
-            if llamada.args
-        ]
-
-        self.assertIn("Cantidad de gastos: 2", mensajes)
-        self.assertIn("Total acumulado: S/ 20.00", mensajes)
-        self.assertIn("Promedio por gasto: S/ 10.00", mensajes)
-
-    def test_resumen_sin_gastos(self):
-        with patch("builtins.print") as mock_print:
-            mostrar_resumen_gastos()
-
-        mensajes = [
-            llamada.args[0]
-            for llamada in mock_print.call_args_list
-            if llamada.args
-        ]
-
-        self.assertIn(
-            "No hay gastos registrados para generar el resumen.",
-            mensajes
-        )
+            print("Opcion incorrecta.")
 
 if __name__ == "__main__":
-    import sys
-
-    if "--test" in sys.argv:
-        unittest.main(argv=[sys.argv[0]])
-    else:
-        menu_gastos()
+    mostrar_menu()
