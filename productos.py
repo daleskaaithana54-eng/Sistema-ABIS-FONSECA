@@ -2,25 +2,25 @@ from archivos import leer_archivo, guardar_linea
 
 
 def mostrar_productos():
-    lineas = leer_archivo("datos/productos.txt")
+    lineas = leer_archivo("Datos/productos.txt")
     
     print("\n---PRODUCTOS DISPONIBLES---")
     if len (lineas) == 0:
         print("No hay productos disponibles.")
     else:
         for linea in lineas:
-            datos = linea.strip().split(",")
+            datos = linea.strip().split(";")
             print("Codigo:", datos[0],
                    "|producto:", datos[1],
                    "|precio: S/", datos[2],)
 
 def buscar_producto():
     codigo_buscar = input("Codigo del producto: ")
-    lineas = leer_archivo("datos/productos.txt")
+    lineas = leer_archivo("Datos/productos.txt")
     encontrado = False
     
     for linea in lineas:
-        datos = linea.strip().split(",")
+        datos = linea.strip().split(";")
 
         if datos[0].lower() == codigo_buscar.lower():
             print("producto:", datos[1])
@@ -30,14 +30,15 @@ def buscar_producto():
     if encontrado == False:
         print("No se encontro el producto.")
 
+
 def agregar_producto():
     codigo = input("Codigo nuevo: ")
     nombre = input("Nombre del producto: ")
     precio = input("Precio de venta: S/ ")
 
-   texto = codigo + "," + nombre + "," + precio
+    texto = codigo + ";" + nombre + ";" + precio
 
-    guardar_linea("datos/productos.txt", texto)
+    guardar_linea("Datos/productos.txt", texto)
 
     print("Producto registrado correctamente.")
 
