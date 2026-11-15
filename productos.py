@@ -15,7 +15,7 @@ def mostrar_productos():
                    "|precio: S/", datos[2],)
 
 def buscar_producto():
-    codigo_buscar = input("Codigo del producto: ")
+    codigo_buscar = input("Codigo del producto: ").strip()
     lineas = leer_archivo("Datos/productos.txt")
     encontrado = False
     
@@ -50,7 +50,7 @@ def agregar_producto():
     guardar_linea("Datos/productos.txt", texto)
 
     print("Producto registrado correctamente.")
-    
+
 def menu_productos():
     opcion = ""
 
