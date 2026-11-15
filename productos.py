@@ -32,7 +32,16 @@ def buscar_producto():
 
 
 def agregar_producto():
-    codigo = input("Codigo nuevo: ")
+    codigo = input("Codigo nuevo: ").strip()
+
+    lineas = leer_archivo("Datos/productos.txt")
+
+    for linea in lineas:
+        datos = linea.strip().split(";")
+        if datos[0].lower() == codigo.lower():
+            print("El codigo ya existe.")
+            return
+
     nombre = input("Nombre del producto: ")
     precio = input("Precio de venta: S/ ")
 
@@ -41,7 +50,7 @@ def agregar_producto():
     guardar_linea("Datos/productos.txt", texto)
 
     print("Producto registrado correctamente.")
-
+    
 def menu_productos():
     opcion = ""
 
