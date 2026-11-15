@@ -1,1 +1,15 @@
 
+# LEER ARCHIVO
+def leer_archivo(ruta):
+    archivo = open(ruta, "r", encoding="utf-8")
+    lineas = archivo.readlines()
+    archivo.close()
+    return lineas
+
+
+# GUARDAR LINEA
+def guardar_linea(ruta, texto):
+    archivo = open(ruta, "a", encoding="utf-8")
+    archivo.write(texto + "\n")
+    archivo.close()
+
