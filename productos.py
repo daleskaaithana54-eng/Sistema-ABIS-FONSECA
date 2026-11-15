@@ -41,9 +41,12 @@ def agregar_producto():
         if datos[0].lower() == codigo.lower():
             print("El codigo ya existe.")
             return
-
     nombre = input("Nombre del producto: ")
     precio = input("Precio de venta: S/ ")
+    
+    if codigo == "" or nombre == "" or precio == "":
+        print("Todos los campos son obligatorios.")
+        return
 
     texto = codigo + ";" + nombre + ";" + precio
 
