@@ -9,7 +9,7 @@ def mostrar_productos():
         print("No hay productos disponibles.")
     else:
         for linea in lineas:
-            datos = linea.strip().split(",")
+            datos = linea.strip().split(";")
             print("Codigo:", datos[0],
                    "|producto:", datos[1],
                    "|precio: S/", datos[2],)
@@ -20,7 +20,7 @@ def buscar_producto():
     encontrado = False
     
     for linea in lineas:
-        datos = linea.strip().split(",")
+        datos = linea.strip().split(";")
 
         if datos[0].lower() == codigo_buscar.lower():
             print("producto:", datos[1])
