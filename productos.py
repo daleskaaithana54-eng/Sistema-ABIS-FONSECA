@@ -35,7 +35,7 @@ def agregar_producto():
     nombre = input("Nombre del producto: ")
     precio = input("Precio de venta: S/ ")
 
-   texto = codigo + "," + nombre + "," + precio
+    texto = codigo + "," + nombre + "," + precio
 
     guardar_linea("datos/productos.txt", texto)
 
