@@ -2,3 +2,4 @@ V001;20/10/2026;Maria Torres;Arroz chaufa;2;14.00;28.0;Yape;Por verificar
 V002;21/10/2026;Cliente de mostrador;Jugo de papaya;1;7.00;7.0;Efectivo;Registrado
 V003;22/10/2026;Jose Ramirez;Lomo saltado;1;18.00;18.0;Yape;Por verificar
 V004;04/03/26; Izbeth Cieza;Pan con pollo;2;6.0;11.4;Yape;Por verificar
+V005;10/11/2026; Jenny;Jugo;2;7.0;13.58;efectivo;Registrado

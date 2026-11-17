@@ -5,3 +5,4 @@ P004;Jugo de papaya;8.00
 P005;Pollo broaster;15.00
 P006;Caldo de gallina;10.00
 P007;Salchipapa;12
+P008;Jugo de fresa;8
