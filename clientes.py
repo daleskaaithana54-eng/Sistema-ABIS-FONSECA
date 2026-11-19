@@ -6,6 +6,26 @@ def validar_dni(dni):
     else:
         return False
 
+# Verificar si el DNI ya existe
+
+def dni_existe(dni):
+    try:
+        archivo = open("clientes.txt", "r", encoding="utf-8")
+        cliente = archivo.readlines()
+        archivo.close()
+
+        for cliente in cliente:
+            datos = cliente.strip().split(",")
+
+            if datos[0] == dni: 
+                return True
+
+    except FileNotFoundError:
+        return False
+
+    return False
+
+
 # Validar nombres y apellidos 
 
 def validar_nombre(nombre):
@@ -30,8 +50,13 @@ def registrar_cliente():
     dni = input("Ingrese el DNI del cliente: ")
 
     while validar_dni(dni) == False:
+     while dni_existe(dni) == True: 
          print("El DNI debe tener 8 numeros. ")
          dni = input("Ingrese nuevamente el DNI: ")
+
+         while validar_dni(dni) == False: 
+             print("El DNI debe tener 8 numeros. ")
+             dni = input("Ingrese nuevamente el DNI")
 
     nombre = input("Ingrese el nombre del cliente: ")
 
@@ -204,35 +229,41 @@ def eliminar_cliente():
     except FileNotFoundError:
         print("No existe el archivo de clientes.")
 
-# Menu de clientes 
 
-while True:
-    print("\n--- MENU DE CLIENTES ---")
-    print("1. Registrar cliente")
-    print("2. Consultar clientes")
-    print("3. Buscar cliente")
-    print("4. Contar clientes")
-    print("5. Actualizar clientes")
-    print("6. Eliminar cliente")
-    print("7. Salir")
+# Menu de clientes
 
-    opcion = input("Seleccione una opcion: ")
 
-    if opcion == "1":
-        registrar_cliente()
-    elif opcion == "2":
-        consultar_clientes()
-    elif opcion == "3":
-        buscar_clientes()
-    elif opcion == "4":
-        contar_clientes()
-    elif opcion == "5":
-        actualizar_clientes()
-    elif opcion == "6":
-        eliminar_cliente()
-    elif opcion == "7":
-        print("Saliendo del programa...")
-        break 
-    else:
-        print("opcion incorrecta.") 
-        break    
+def menu_clientes():
+    while True:
+        print("\n--- MENU DE CLIENTES ---")
+        print("1. Registrar cliente")
+        print("2. Consultar clientes")
+        print("3. Buscar cliente")
+        print("4. Contar clientes")
+        print("5. Actualizar clientes")
+        print("6. Eliminar cliente")
+        print("7. Salir")
+
+        opcion = input("Seleccione una opcion: ")
+
+        if opcion == "1":
+            registrar_cliente()
+        elif opcion == "2":
+            consultar_clientes()
+        elif opcion == "3":
+            buscar_clientes()
+        elif opcion == "4":
+            contar_clientes()
+        elif opcion == "5":
+            actualizar_clientes()
+        elif opcion == "6":
+            eliminar_cliente()
+        elif opcion == "7":
+            print("Saliendo del programa...")
+            break
+        else:
+            print("opcion incorrecta.")
+        
+
+if __name__ == "__main__":
+     menu_clientes()  
