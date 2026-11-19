@@ -185,7 +185,7 @@ def actualizar_clientes():
 
                 apellido = input("Nuevo apelledo: ")
 
-            while validar_nombre(aoellido) == False:
+            while validar_nombre(apellido) == False:
                 print("Ingrese solamente letras.")
                 apellido = input("Nuevo apellido: ")
 
