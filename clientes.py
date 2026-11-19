@@ -161,6 +161,8 @@ def contar_clientes():
  
 def actualizar_clientes():
     print("\n--- ACTUALIZAR CLIENTE ---")
+
+
     dni_buscar = input("Ingrese el DNI del cliente: ")
     encontrado = False
 
@@ -174,9 +176,24 @@ def actualizar_clientes():
 
             if datos[0] == dni_buscar:
                 print("Cliente encontrado")
-
+               
                 nombre = input("Nuevo nombre: ")
+
+            while validar_nombre(nombre) == False: 
+                print("Ingrese solamente letras")
+                nombre = input("Nuevo nombre: ")
+
                 apellido = input("Nuevo apelledo: ")
+
+            while validar_nombre(aoellido) == False:
+                print("Ingrese solamente letras.")
+                apellido = input("Nuevo apellido: ")
+
+
+                telefono = input("Nuevo telefono: ")
+
+            while validar_telefono(telefono) == False: 
+                print("El telefono debe tener 9 numeros.")
                 telefono = input("Nuevo telefono: ")
 
                 clientes[i] = dni_buscar + "," + nombre + "," + apellido + "," + telefono + "\n"
