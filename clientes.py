@@ -43,6 +43,8 @@ def validar_telefono(telefono):
         return False
     
 # Registro de clientes
+def menu_clientes():
+    registrar_cliente()
 
 def registrar_cliente():
     print("\n--- REGISTRO DE CLIENTES ---")
