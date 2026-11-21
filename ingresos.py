@@ -15,7 +15,7 @@ def registrar_ingreso():
 
 
 def mostrar_ingresos():
-    lineas = leer_archivo("datos/ingresos.txt")
+    lineas = leer_archivo("Datos/ingresos.txt")
 
     print("\n--- INGRESOS REGISTRADOS ---")
 
@@ -30,6 +30,15 @@ def mostrar_ingresos():
                   "| Monto: S/", datos[2],
                   "| Origen:", datos[3])
 
+def cargar_registros():
+    registros = []
+
+    for linea in leer_archivo("Datos/ingresos.txt"):
+        datos = linea.strip().split(";")
+        if len(datos) == 4:
+            registros.append(datos)
+
+    return registros
 
 def menu_ingresos():
     opcion = ""
