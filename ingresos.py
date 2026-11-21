@@ -45,6 +45,12 @@ def guardar_registros(registros):
         for datos in registros:
             archivo.write(datos[0] + ";" + datos[1] + ";" + datos[2] + ";" + datos[3] + "\n")
 
+def a_monto(texto):
+    numero = texto.strip().replace(",", ".")
+    if numero.replace(".", "", 1).isdigit():
+        return float(numero)
+    return 0
+
 def menu_ingresos():
     opcion = ""
 
