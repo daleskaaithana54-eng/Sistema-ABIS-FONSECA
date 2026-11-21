@@ -69,7 +69,16 @@ def agregar_producto():
         print("Todos los campos son obligatorios.")
         return
 
-    texto = codigo + ";" + nombre + ";" + precio
+    try:
+        precio_numero = float(precio)
+    except ValueError:
+        print("El precio debe ser un numero.")
+        return
+    if precio_numero <= 0:
+        print("El precio debe ser mayor que cero.")
+        return
+
+    texto = codigo + ";" + nombre + ";" + str(precio_numero)
 
     guardar_linea("Datos/productos.txt", texto)
 
