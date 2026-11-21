@@ -14,6 +14,10 @@ def mostrar_productos():
                    "|producto:", datos[1],
                    "|precio: S/", datos[2],)
 
+def contar_productos():
+    lineas = leer_archivo("Datos/productos.txt")
+    print("Total de productos:", len(lineas))
+
 def buscar_producto():
     codigo_buscar = input("Codigo del producto: ").strip()
     lineas = leer_archivo("Datos/productos.txt")
@@ -107,7 +111,8 @@ def menu_productos():
         print("3. Agregar producto")
         print("4. Actualizar producto")
         print("5. Eliminar producto")
-        print("6. volver")
+        print("6. Contar productos")
+        print("7. volver")
 
         opcion = input("Selecciona una opcion: ")
 
@@ -122,6 +127,8 @@ def menu_productos():
         elif opcion == "5":
             eliminar_producto()
         elif opcion == "6":
+            contar_productos()
+        elif opcion == "7":
             print("Volviendo al menu principal.")
         else:
             print("Opcion  no valida.")
