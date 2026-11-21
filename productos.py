@@ -1,8 +1,8 @@
-from archivos import leer_archivo, guardar_linea
+from archivos import leer_archivo, guardar_linea, guardar_archivo
 
 
 def mostrar_productos():
-    lineas = leer_archivo("datos/productos.txt")
+    lineas = leer_archivo("Datos/productos.txt")
     
     print("\n---PRODUCTOS DISPONIBLES---")
     if len (lineas) == 0:
@@ -15,8 +15,8 @@ def mostrar_productos():
                    "|precio: S/", datos[2],)
 
 def buscar_producto():
-    codigo_buscar = input("Codigo del producto: ")
-    lineas = leer_archivo("datos/productos.txt")
+    codigo_buscar = input("Codigo del producto: ").strip()
+    lineas = leer_archivo("Datos/productos.txt")
     encontrado = False
     
     for linea in lineas:
@@ -30,26 +30,63 @@ def buscar_producto():
     if encontrado == False:
         print("No se encontro el producto.")
 
+
 def agregar_producto():
-    codigo = input("Codigo nuevo: ")
-    nombre = input("Nombre del producto: ")
-    precio = input("Precio de venta: S/ ")
+    codigo = input("Codigo nuevo: ").strip()
 
-    texto = codigo + "," + nombre + "," + precio
+    lineas = leer_archivo("Datos/productos.txt")
 
-    guardar_linea("datos/productos.txt", texto)
+    for linea in lineas:
+        datos = linea.strip().split(";")
+        if datos[0].lower() == codigo.lower():
+            print("El codigo ya existe.")
+            return
+    nombre = input("Nombre del producto: ").strip()
+    precio = input("Precio de venta: S/ ").strip()
+
+    if codigo == "" or nombre == "" or precio == "":
+        print("Todos los campos son obligatorios.")
+        return
+
+    texto = codigo + ";" + nombre + ";" + precio
+
+    guardar_linea("Datos/productos.txt", texto)
 
     print("Producto registrado correctamente.")
+
+def actualizar_producto():
+        codigo = input("Codigo del producto:")
+        lineas = leer_archivo("Datos/productos.txt")
+        nuevos = []
+        encontrado = False
+
+        for linea in lineas:
+            datos = linea.strip().split(";")
+
+            if datos[0].lower() == codigo.lower():
+                nombre = input("Nuevo nombre: ")
+                precio = input("Nuevo precio: S/ ")
+                nuevos.append(codigo + ";" + nombre + ";" + precio)
+                encontrado = True
+            else:
+                nuevos.append(linea.strip())
+
+        if encontrado:
+            guardar_archivo("Datos/productos.txt", nuevos)
+            print("Producto actualizado correctamente.")
+        else:
+            print("Producto no encontrado.")
 
 def menu_productos():
     opcion = ""
 
-    while opcion != "4":
+    while opcion != "5":
         print("\n---MENU PRODUCTOS---")
         print("1. Mostrar productos")
         print("2. Buscar producto")
         print("3. Agregar producto")
-        print("4. volver")
+        print("4. Actualizar producto")
+        print("5. volver")
 
         opcion = input("Selecciona una opcion: ")
 
@@ -60,6 +97,8 @@ def menu_productos():
         elif opcion == "3":
             agregar_producto()
         elif opcion == "4":
+            actualizar_producto()
+        elif opcion == "5":
             print("Volviendo al menu principal.")
         else:
             print("Opcion  no valida.")
