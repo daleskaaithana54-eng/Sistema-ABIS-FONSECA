@@ -1,51 +1,96 @@
 #Modulo de ventas
 
 #Registrar los pedidos que se ingresen desde menu.py
-listas_ventas = []
+Ventas=[]
 
-def calcular_subtotal(precio_unitario:float,cantidad:int)->float:
-    "Calcula el subtotal multiplicando el precio unitario por la cantidad"
-    subtotal = precio_unitario * cantidad
-    return round(subtotal,2)
+def calcular_subtotal(precio,cantidad):
+    return precio * cantidad
 
-def aplicar_descuento(subtotal:float, porcentaje_descuento:float = 0.0) -> float:
-    "Calcula el descuento aplicando el porcentaje de descuento al subtotal"
-    return round(subtotal* (porcentaje_descuento/100),2)
+def aplicar_descuento(subtotal,porcentaje):
+    return subtotal *(porcentaje/100)
 
     
-def calcular_total(subtotal:float,descuento:float)-> float:
-    "Calcula el monto final a pagar tras aplicar descuentos"
-    return round(subtotal - descuento,2)
+def calcular_total(subtotal,descuento):
+    return subtotal - descuento
     
-def registrar_venta(id_venta:str,mesa_o_cliente:str,plato:str,cantidad:int,precio_unitario:float,porcentaje_descuento:float=0.0)->dict:
-    "Recibe los datos capturados en el menu, calcula los montos y guarda la comanda en la lista general"
-    subtotal = calcular_subtotal(precio_unitario,cantidad)
-    descuento = aplicar_descuento(subtotal,porcentaje_descuento)
-    total = calcular_total(subtotal,descuento)
+def registrar_venta():
+    print("\n=== REGISTRAR VENTA ===")
+
+    codigo=input("Ingrese codigo de venta:")
+    producto=input("Ingrese producto:")
+    precio=float(input("Ingrese precio: S/ "))
+    cantidad=int(input("Ingrese cantidad: "))
+    porcentaje=float(input("Ingrese descuento (%): "))
+    subtotal=calcular_subtotal(precio,cantidad)
+    descuento=aplicar_descuento(subtotal,porcentaje)
+    total=calcular_total(subtotal,descuento)
 
     venta = {
-        "id_venta": str(id_venta).strip(),
-        "cliente": str(mesa_o_cliente).strip(),
-        "plato": str(plato).strip(),
-        "cantidad": int(cantidad),
-        "precio_unitario": float(precio_unitario),
+        "codigo": codigo,
+        "producto": producto,
+        "precio": precio,
+        "cantidad": cantidad,
         "subtotal": subtotal,
         "descuento": descuento,
         "total": total
     }
-    listas_ventas.append(venta)
-    return venta
 
-def consultar_ventas()->list:
-    "Retorna todas las ventas guardadas"
-    return listas_ventas
-
-def buscar_venta(id_venta:str)->dict:
+    ventas.append(venta)
     
-    "Busca un ticket por su identificador"
-    id_busqueda = str(id_venta).strip().lower()
-    for venta in listas_ventas:
-        if venta["id_venta"].lower() == id_busqueda:
-            return venta
-    return None
+print("\nVenta registrada correctamente")
+print("Subtotal: S/",subtotal)
+print("Descuento: S/",descuento)
+print("Total: S/",total)
+
+def consultar_ventas():
+    print("\n=== CONSULTAR VENTAS ===")
+    if len(ventas) == 0:
+       print("No hay ventas registradas.")
+       return
+for venta in ventas:
+    print("\nCodigo:", venta["codigo"])
+    print("Producto:", venta["producto"])
+    print("Precio: S/", venta["precio"])
+    print("Cantidad:", venta["cantidad"])
+    print("Subtotal: S/", venta["subtotal"])
+    print("Descuento: S/", venta["descuento"])
+    print("Total: S/", venta["total"])
+
+    def buscar_venta():
+        print("\n=== BUSCAR VENTA ===")
+        codigo = input("Ingrese codigo de venta:")
+        for venta in ventas:
+            if venta["codigo"] == codigo:
+                print("\nVenta encontrada:")
+                print("Codigo:",venta["codigo"])
+                print("Producto:",venta["producto"])
+                print("Cantidad:", venta["cantidad"])
+                print("Total: S/", venta["total"])
+                return
+        print("No se encontro la venta")
+
+    def menu_ventas():
+        while True:
+            print("\n=== MENU DE VENTAS ===")
+            print("1. Registrar venta")
+            print("2. Consultar ventas")
+            print("3. Buscar venta")
+            print("4. Regresar al menu principal")
+
+            opcion = input("Seleccione una opcion:")
+
+            if opcion == "1":
+                registrar_venta()
+
+            elif opcion == "2":
+                consultar_ventas()
+
+            elif opcion == "3":
+                buscar_venta()
+
+            elif opcion == "4":
+                break
+
+            else:
+                print("Opcion invalida.")
     
