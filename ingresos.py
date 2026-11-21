@@ -51,6 +51,15 @@ def a_monto(texto):
         return float(numero)
     return 0
 
+def mostrar_lista(registros):
+    if len(registros) == 0:
+        print("No hay ingresos para mostrar.")
+
+    for i in range(len(registros)):
+        datos = registros[i]
+        print(i + 1, ". Fecha:", datos[0], "| Descripcion:", datos[1],
+              "| Monto: S/", datos[2], "| Origen:", datos[3])
+
 def menu_ingresos():
     opcion = ""
 
