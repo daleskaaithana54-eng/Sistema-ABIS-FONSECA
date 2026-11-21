@@ -1,42 +1,32 @@
-def mostrar_menu():
-    print("\n" + "=" * 45)
-    print("          SISTEMA DE GESTION")
-    print("=" *  45)
-    print("1. Gestion de ventas")
-    print("2. Gestion de ingresos")
-    print("3. Gestion de gastos")
-    print("4. Archivos y reportes")
-    print("5. Resumen general")
-    print("6. Estadistica")
-    print("7. Salir")
-    print("=" * 45)
+from ventas import menu_ventas
+from productos import menu_productos
+from clientes import menu_clientes
+from ingresos import menu_ingresos
 
-def ejecutar_menu():
-    while True:
-        mostrar_menu()
+def menu_principal():
+    opcion = ""
 
-        opcion = input("Seleccione una opcion:")
+    while opcion != "5":
+        print("SISTEMA DE GESTION - ABIS FONSECA")
+        print("Restaurant, Jugueria, Chifa")
+        print("====================================")
+        print("1. Ventas")
+        print("2. Productos")
+        print("3. Clientes")
+        print("4. Ingresos")
+        print("5. Salir")
+
+        opcion = input("Selecciona una opcion: ")
         if opcion == "1":
-            print("\nGestion de ventas")
-            # Lógica para gestionar ventas
+            menu_ventas()
         elif opcion == "2":
-            print("\nGestion de ingresos")
-            # Lógica para gestionar ingresos
+            menu_productos()
         elif opcion == "3":
-            print("\nGestion de gastos")
-            # Lógica para gestionar gastos
+            menu_clientes()
         elif opcion == "4":
-            print("\nArchivos y reportes")
-            # Lógica para gestionar archivos y reportes
+            menu_ingresos()
         elif opcion == "5":
-            print("\nResumen general")
-            # Lógica para mostrar resumen general
-        elif opcion == "6":
-            print("Estadistica")
-            # Lógica para mostrar estadisticas
-        elif opcion == "7":
-            print("\nSaliendo del sistema...")
-            break
+            print("Gracias por utilizar el sistema.")
         else:
-            print("\nOpción no valida. Por favor, intente nuevamente.")
-ejecutar_menu()
+            print("Opcion no valida.")
+            

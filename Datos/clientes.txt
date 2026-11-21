@@ -1,0 +1,5 @@
+46398267,Cliente de mostrador,-
+72061588,Marta,Ramirez,987324028
+79253790,Jose,Torres,949234028
+73062867,Daleska,Barreto,679829386
+89276548,Brianna,Lopez,945865286
