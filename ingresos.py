@@ -40,6 +40,11 @@ def cargar_registros():
 
     return registros
 
+def guardar_registros(registros):
+    with open("Datos/ingresos.txt", "w", encoding="utf-8") as archivo:
+        for datos in registros:
+            archivo.write(datos[0] + ";" + datos[1] + ";" + datos[2] + ";" + datos[3] + "\n")
+
 def menu_ingresos():
     opcion = ""
 
