@@ -60,14 +60,26 @@ def mostrar_lista(registros):
         print(i + 1, ". Fecha:", datos[0], "| Descripcion:", datos[1],
               "| Monto: S/", datos[2], "| Origen:", datos[3])
 
+def buscar_ingresos():
+    texto = input("Texto a buscar: ").strip().lower()
+    encontrados = []
+
+    for datos in cargar_registros():
+        if datos[1].lower().find(texto) != -1 or datos[3].lower().find(texto) != -1:
+            encontrados.append(datos)
+
+    print("\n--- RESULTADOS ---")
+    mostrar_lista(encontrados)
+
 def menu_ingresos():
     opcion = ""
 
     while opcion != "0":
         print("\n--- MENU DE INGRESOS ---")
-        print("0. Volver")
         print("1. Registrar ingreso")
         print("2. Mostrar ingresos")
+        print("3. Buscar ingresos")
+        print("0. Volver")
         
 
         opcion = input("Selecciona una opcion: ")
@@ -76,6 +88,8 @@ def menu_ingresos():
             registrar_ingreso()
         elif opcion == "2":
             mostrar_ingresos()
+        elif opcion == "3":
+            buscar_ingresos()
         elif opcion == "0":
             print("Volviendo al menu principal.")
         else:
