@@ -136,6 +136,12 @@ def eliminar_ingreso():
         guardar_registros(registros)
         print("Ingreso eliminado correctamente.")
 
+def sumar_montos(registros, indice=0):
+    if indice == len(registros):
+        return 0
+
+    return a_monto(registros[indice][2]) + sumar_montos(registros, indice + 1)
+
 def menu_ingresos():
     opcion = ""
 
