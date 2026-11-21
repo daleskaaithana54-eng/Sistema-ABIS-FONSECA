@@ -109,7 +109,7 @@ def actualizar_producto():
                 if precio_numero <= 0:
                     print("El precio debe ser mayor que cero.")
                     return
-                    
+
                 nuevos.append(codigo + ";" + nombre + ";" + str(precio_numero))
                 encontrado = True
             else:
@@ -136,8 +136,13 @@ def eliminar_producto():
             nuevos.append(linea.strip())
 
     if encontrado:
-        guardar_archivo("Datos/productos.txt", nuevos)
-        print("Producto eliminado correctamente.")
+        confirmar = input("Desea eliminar el producto? (s/n): ").strip().lower()
+
+        if confirmar == "s":
+            guardar_archivo("Datos/productos.txt", nuevos)
+            print("Producto eliminado correctamente.")
+        else:
+            print("Eliminacion cancelada.")
     else:
         print("Producto no encontrado.")
 
