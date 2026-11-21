@@ -1,3 +1,4 @@
 20/10/2026;Venta de almuerzos;280.00;ventas
 21/10/2026;Venta de jugos;95.00;ventas
 22/10/2026;Ingreso por pedido;150.00;otro
+16/11/2026;venta de jugo;27.00;ventas

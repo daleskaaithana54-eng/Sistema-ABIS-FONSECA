@@ -1,4 +1,6 @@
 # Registro de clientes
+def menu_clientes():
+    registrar_cliente()
 
 def registrar_cliente():
     print("\n--- REGISTRO DE CLIENTES ---")
@@ -8,7 +10,7 @@ def registrar_cliente():
     apellido = input("Ingrese el apellido del cliente: ")
     telefono = input("Ingrese el teléfono del cliente: ")
 
-    archivo = open("clientes.txt", "a", encoding="utf-8")
+    archivo = open("datos/clientes.txt", "a", encoding="utf-8")
 
     archivo.write(dni + "," + nombre+"," + apellido + ","+telefono+"\n")
     
@@ -16,5 +18,3 @@ def registrar_cliente():
 
     print("\nCliente registrado correctamente.")
 
-registrar_cliente()
-    
