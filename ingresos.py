@@ -9,7 +9,7 @@ def registrar_ingreso():
 
     texto = fecha + ";" + descripcion + ";" + monto + ";" + origen
 
-    guardar_linea("datos/ingresos.txt", texto)
+    guardar_linea("Datos/ingresos.txt", texto)
 
     print("Ingreso registrado correctamente.")
 
@@ -30,6 +30,7 @@ def mostrar_ingresos():
                   "| Monto: S/", datos[2],
                   "| Origen:", datos[3])
 
+
 def cargar_registros():
     registros = []
 
@@ -40,16 +41,19 @@ def cargar_registros():
 
     return registros
 
+
 def guardar_registros(registros):
     with open("Datos/ingresos.txt", "w", encoding="utf-8") as archivo:
         for datos in registros:
             archivo.write(datos[0] + ";" + datos[1] + ";" + datos[2] + ";" + datos[3] + "\n")
+
 
 def a_monto(texto):
     numero = texto.strip().replace(",", ".")
     if numero.replace(".", "", 1).isdigit():
         return float(numero)
     return 0
+
 
 def mostrar_lista(registros):
     if len(registros) == 0:
@@ -59,6 +63,7 @@ def mostrar_lista(registros):
         datos = registros[i]
         print(i + 1, ". Fecha:", datos[0], "| Descripcion:", datos[1],
               "| Monto: S/", datos[2], "| Origen:", datos[3])
+
 
 def buscar_ingresos():
     texto = input("Texto a buscar: ").strip().lower()
@@ -70,6 +75,7 @@ def buscar_ingresos():
 
     print("\n--- RESULTADOS ---")
     mostrar_lista(encontrados)
+
 
 def ordenar_ingresos():
     registros = cargar_registros()
@@ -84,6 +90,7 @@ def ordenar_ingresos():
 
     print("\n--- DE MAYOR A MENOR ---")
     mostrar_lista(registros)
+
 
 def modificar_ingreso():
     registros = cargar_registros()
@@ -113,6 +120,7 @@ def modificar_ingreso():
     else:
         print("Monto no valido. No se hizo ningun cambio.")
 
+
 def eliminar_ingreso():
     registros = cargar_registros()
 
@@ -136,11 +144,13 @@ def eliminar_ingreso():
         guardar_registros(registros)
         print("Ingreso eliminado correctamente.")
 
+
 def sumar_montos(registros, indice=0):
     if indice == len(registros):
         return 0
 
     return a_monto(registros[indice][2]) + sumar_montos(registros, indice + 1)
+
 
 def mostrar_resumen():
     registros = cargar_registros()
@@ -157,6 +167,7 @@ def mostrar_resumen():
     print("Total recibido: S/", round(total, 2))
     print("Promedio: S/", round(total / len(registros), 2))
 
+
 def menu_ingresos():
     opcion = ""
 
@@ -171,7 +182,6 @@ def menu_ingresos():
         print("7. Resumen de ingresos")
         print("0. Volver")
         
-
         opcion = input("Selecciona una opcion: ")
 
         if opcion == "1":
