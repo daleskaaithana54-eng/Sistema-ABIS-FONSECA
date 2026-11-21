@@ -85,6 +85,34 @@ def ordenar_ingresos():
     print("\n--- DE MAYOR A MENOR ---")
     mostrar_lista(registros)
 
+def modificar_ingreso():
+    registros = cargar_registros()
+
+    print("\n--- MODIFICAR INGRESO ---")
+    mostrar_lista(registros)
+
+    if len(registros) == 0:
+        return
+
+    numero = input("Numero de ingreso (0 para cancelar): ").strip()
+
+    while not (numero.isdigit() and int(numero) <= len(registros)):
+        numero = input("Numero no valido. Intenta de nuevo: ").strip()
+
+    numero = int(numero)
+
+    if numero == 0:
+        print("Modificacion cancelada.")
+        return
+
+    nuevo = input("Nuevo monto: S/ ")
+    if a_monto(nuevo) > 0:
+        registros[numero - 1][2] = nuevo.strip()
+        guardar_registros(registros)
+        print("Ingreso modificado correctamente.")
+    else:
+        print("Monto no valido. No se hizo ningun cambio.")
+
 def menu_ingresos():
     opcion = ""
 
@@ -94,6 +122,7 @@ def menu_ingresos():
         print("2. Mostrar ingresos")
         print("3. Buscar ingresos")
         print("4. Ordenar por monto")
+        print("5. Modificar ingreso")
         print("0. Volver")
         
 
@@ -107,6 +136,8 @@ def menu_ingresos():
             buscar_ingresos()
         elif opcion == "4":
             ordenar_ingresos()
+        elif opcion == "5":
+            modificar_ingreso()
         elif opcion == "0":
             print("Volviendo al menu principal.")
         else:
