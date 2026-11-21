@@ -142,6 +142,21 @@ def sumar_montos(registros, indice=0):
 
     return a_monto(registros[indice][2]) + sumar_montos(registros, indice + 1)
 
+def mostrar_resumen():
+    registros = cargar_registros()
+
+    print("\n--- RESUMEN DE INGRESOS ---")
+
+    if len(registros) == 0:
+        print("No hay ingresos registrados.")
+        return
+
+    total = sumar_montos(registros)
+
+    print("Cantidad de ingresos:", len(registros))
+    print("Total recibido: S/", round(total, 2))
+    print("Promedio: S/", round(total / len(registros), 2))
+
 def menu_ingresos():
     opcion = ""
 
@@ -153,6 +168,7 @@ def menu_ingresos():
         print("4. Ordenar por monto")
         print("5. Modificar ingreso")
         print("6. Eliminar ingreso")
+        print("7. Resumen de ingresos")
         print("0. Volver")
         
 
@@ -170,6 +186,8 @@ def menu_ingresos():
             modificar_ingreso()
         elif opcion == "6":
             eliminar_ingreso()
+        elif opcion == "7":
+            mostrar_resumen()
         elif opcion == "0":
             print("Volviendo al menu principal.")
         else:
