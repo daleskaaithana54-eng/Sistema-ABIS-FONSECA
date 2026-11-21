@@ -85,7 +85,7 @@ def agregar_producto():
     print("Producto registrado correctamente.")
 
 def actualizar_producto():
-        codigo = input("Codigo del producto:")
+        codigo = input("Codigo del producto: ").strip()
         lineas = leer_archivo("Datos/productos.txt")
         nuevos = []
         encontrado = False
@@ -94,9 +94,23 @@ def actualizar_producto():
             datos = linea.strip().split(";")
 
             if datos[0].lower() == codigo.lower():
-                nombre = input("Nuevo nombre: ")
-                precio = input("Nuevo precio: S/ ")
-                nuevos.append(codigo + ";" + nombre + ";" + precio)
+                nombre = input("Nuevo nombre: ").strip()
+                precio = input("Nuevo precio: S/ ").strip()
+                
+                if nombre == "" or precio == "":
+                    print("Todos los campos son obligatorios.")
+                    return
+                try:
+                    precio_numero = float(precio)
+                except ValueError:
+                    print("El precio debe ser un numero.")
+                    return
+
+                if precio_numero <= 0:
+                    print("El precio debe ser mayor que cero.")
+                    return
+                    
+                nuevos.append(codigo + ";" + nombre + ";" + str(precio_numero))
                 encontrado = True
             else:
                 nuevos.append(linea.strip())
@@ -108,7 +122,7 @@ def actualizar_producto():
             print("Producto no encontrado.")
 
 def eliminar_producto():
-    codigo = input("Codigo del producto: ")
+    codigo = input("Codigo del producto: ").strip()
     lineas = leer_archivo("Datos/productos.txt")
     nuevos = []
     encontrado = False
