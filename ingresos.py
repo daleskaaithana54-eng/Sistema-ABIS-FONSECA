@@ -71,6 +71,20 @@ def buscar_ingresos():
     print("\n--- RESULTADOS ---")
     mostrar_lista(encontrados)
 
+def ordenar_ingresos():
+    registros = cargar_registros()
+    n = len(registros)
+
+    for pasada in range(n - 1):
+        for i in range(n - 1 - pasada):
+            if a_monto(registros[i][2]) < a_monto(registros[i + 1][2]):
+                temp = registros[i]
+                registros[i] = registros[i + 1]
+                registros[i + 1] = temp
+
+    print("\n--- DE MAYOR A MENOR ---")
+    mostrar_lista(registros)
+
 def menu_ingresos():
     opcion = ""
 
@@ -79,6 +93,7 @@ def menu_ingresos():
         print("1. Registrar ingreso")
         print("2. Mostrar ingresos")
         print("3. Buscar ingresos")
+        print("4. Ordenar por monto")
         print("0. Volver")
         
 
@@ -90,6 +105,8 @@ def menu_ingresos():
             mostrar_ingresos()
         elif opcion == "3":
             buscar_ingresos()
+        elif opcion == "4":
+            ordenar_ingresos()
         elif opcion == "0":
             print("Volviendo al menu principal.")
         else:
