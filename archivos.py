@@ -13,3 +13,12 @@ def guardar_linea(ruta, texto):
     archivo.write(texto + "\n")
     archivo.close()
 
+# GUARDAR ARCHIVO COMPLETO
+def guardar_archivo(ruta, lineas):
+    archivo = open(ruta, "w", encoding="utf-8")
+
+    for linea in lineas:
+        archivo.write(linea + "\n")
+
+    archivo.close()
+    
