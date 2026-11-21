@@ -113,6 +113,29 @@ def modificar_ingreso():
     else:
         print("Monto no valido. No se hizo ningun cambio.")
 
+def eliminar_ingreso():
+    registros = cargar_registros()
+
+    print("\n--- ELIMINAR INGRESO ---")
+    mostrar_lista(registros)
+
+    if len(registros) == 0:
+        return
+
+    numero = input("Numero de ingreso (0 para cancelar): ").strip()
+
+    while not (numero.isdigit() and int(numero) <= len(registros)):
+        numero = input("Numero no valido. Intenta de nuevo: ").strip()
+
+    numero = int(numero)
+
+    if numero == 0:
+        print("Eliminacion cancelada.")
+    else:
+        registros.pop(numero - 1)
+        guardar_registros(registros)
+        print("Ingreso eliminado correctamente.")
+
 def menu_ingresos():
     opcion = ""
 
@@ -123,6 +146,7 @@ def menu_ingresos():
         print("3. Buscar ingresos")
         print("4. Ordenar por monto")
         print("5. Modificar ingreso")
+        print("6. Eliminar ingreso")
         print("0. Volver")
         
 
@@ -138,6 +162,8 @@ def menu_ingresos():
             ordenar_ingresos()
         elif opcion == "5":
             modificar_ingreso()
+        elif opcion == "6":
+            eliminar_ingreso()
         elif opcion == "0":
             print("Volviendo al menu principal.")
         else:
