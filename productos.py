@@ -77,16 +77,37 @@ def actualizar_producto():
         else:
             print("Producto no encontrado.")
 
+def eliminar_producto():
+    codigo = input("Codigo del producto: ")
+    lineas = leer_archivo("Datos/productos.txt")
+    nuevos = []
+    encontrado = False
+
+    for linea in lineas:
+        datos = linea.strip().split(";")
+
+        if datos[0].lower() == codigo.lower():
+            encontrado = True
+        else:
+            nuevos.append(linea.strip())
+
+    if encontrado:
+        guardar_archivo("Datos/productos.txt", nuevos)
+        print("Producto eliminado correctamente.")
+    else:
+        print("Producto no encontrado.")
+
 def menu_productos():
     opcion = ""
 
-    while opcion != "5":
+    while opcion != "6":
         print("\n---MENU PRODUCTOS---")
         print("1. Mostrar productos")
         print("2. Buscar producto")
         print("3. Agregar producto")
         print("4. Actualizar producto")
-        print("5. volver")
+        print("5. Eliminar producto")
+        print("6. volver")
 
         opcion = input("Selecciona una opcion: ")
 
@@ -99,6 +120,8 @@ def menu_productos():
         elif opcion == "4":
             actualizar_producto()
         elif opcion == "5":
+            eliminar_producto()
+        elif opcion == "6":
             print("Volviendo al menu principal.")
         else:
             print("Opcion  no valida.")
