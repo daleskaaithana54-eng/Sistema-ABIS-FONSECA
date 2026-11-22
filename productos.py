@@ -18,6 +18,16 @@ def contar_productos():
     lineas = leer_archivo("Datos/productos.txt")
     print("Total de productos:", len(lineas))
 
+def calcular_valor_total():
+    lineas = leer_archivo("Datos/productos.txt")
+    total = 0
+
+    for linea in lineas:
+        datos = linea.strip().split(";")
+        total = total + float(datos[2])
+
+    print("Valor total de los productos: S/", format(total, ".2f"))
+
 def mostrar_productos_por_precio():
     lineas = leer_archivo("Datos/productos.txt")
     productos = []
@@ -172,7 +182,7 @@ def eliminar_producto():
 def menu_productos():
     opcion = ""
 
-    while opcion != "9":
+    while opcion != "10":
         print("\n---MENU PRODUCTOS---")
         print("1. Mostrar productos")
         print("2. Buscar producto")
@@ -182,7 +192,8 @@ def menu_productos():
         print("6. Contar productos")
         print("7. Buscar por nombre")
         print("8. Mostrar productos por precio")
-        print("9. volver")
+        print("9. Calcular valor total")
+        print("10. volver")
 
         opcion = input("Selecciona una opcion: ")
 
@@ -203,6 +214,8 @@ def menu_productos():
         elif opcion == "8":
             mostrar_productos_por_precio()
         elif opcion == "9":
+            calcular_valor_total()
+        elif opcion == "10":
             print("Volviendo al menu principal.")
         else:
             print("Opcion  no valida.")
