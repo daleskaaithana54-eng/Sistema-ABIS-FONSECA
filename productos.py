@@ -18,6 +18,29 @@ def contar_productos():
     lineas = leer_archivo("Datos/productos.txt")
     print("Total de productos:", len(lineas))
 
+def mostrar_productos_por_precio():
+    lineas = leer_archivo("Datos/productos.txt")
+    productos = []
+
+    if len(lineas) == 0:
+        print("No hay productos disponibles.")
+        return
+    for linea in lineas:
+        datos = linea.strip().split(";")
+        productos.append(datos)
+
+    for i in range(len(productos)):
+        for j in range(i + 1, len(productos)):
+            if float(productos[i][2]) > float(productos[j][2]):
+                temporal = productos[i]
+                productos[i] = productos[j]
+                productos[j] = temporal
+        
+    print("\n---PRODUCTOS ORDENADOS POR PRECIO---")
+    for producto in productos:
+        print("Codigo:", producto[0],
+              "|producto:", producto[1],
+              "|precio: S/", producto[2])
 def buscar_por_nombre():
     nombre_buscar = input("Nombre del producto: ").strip().lower()
     lineas = leer_archivo("Datos/productos.txt")
@@ -149,7 +172,7 @@ def eliminar_producto():
 def menu_productos():
     opcion = ""
 
-    while opcion != "8":
+    while opcion != "9":
         print("\n---MENU PRODUCTOS---")
         print("1. Mostrar productos")
         print("2. Buscar producto")
@@ -158,7 +181,8 @@ def menu_productos():
         print("5. Eliminar producto")
         print("6. Contar productos")
         print("7. Buscar por nombre")
-        print("8. volver")
+        print("8. Mostrar productos por precio")
+        print("9. volver")
 
         opcion = input("Selecciona una opcion: ")
 
@@ -177,6 +201,8 @@ def menu_productos():
         elif opcion == "7":
             buscar_por_nombre()
         elif opcion == "8":
+            mostrar_productos_por_precio()
+        elif opcion == "9":
             print("Volviendo al menu principal.")
         else:
             print("Opcion  no valida.")
