@@ -28,6 +28,26 @@ def calcular_valor_total():
 
     print("Valor total de los productos: S/", format(total, ".2f"))
 
+def mostrar_producto_mas_caro():
+    lineas = leer_archivo("Datos/productos.txt")
+    
+    if len(lineas) == 0:
+        print("No hay productos disponibles.")
+        return
+
+    mayor = lineas[0].strip().split(";")
+
+    for linea in lineas:
+        datos = linea.strip().split(";")
+        
+        if float(datos[2]) > float(mayor[2]):
+            mayor = datos
+    
+    print("\n---PRODUCTO MAS CARO---")
+    print("Codigo:", mayor[0])
+    print("producto:", mayor[1])
+    print("precio: S/", mayor[2])
+    
 def mostrar_productos_por_precio():
     lineas = leer_archivo("Datos/productos.txt")
     productos = []
@@ -182,7 +202,7 @@ def eliminar_producto():
 def menu_productos():
     opcion = ""
 
-    while opcion != "10":
+    while opcion != "11":
         print("\n---MENU PRODUCTOS---")
         print("1. Mostrar productos")
         print("2. Buscar producto")
@@ -193,7 +213,8 @@ def menu_productos():
         print("7. Buscar por nombre")
         print("8. Mostrar productos por precio")
         print("9. Calcular valor total")
-        print("10. volver")
+        print("10. Mostrar producto mas caro")
+        print("11. volver")
 
         opcion = input("Selecciona una opcion: ")
 
@@ -216,6 +237,8 @@ def menu_productos():
         elif opcion == "9":
             calcular_valor_total()
         elif opcion == "10":
+            mostrar_producto_mas_caro()
+        elif opcion == "11":
             print("Volviendo al menu principal.")
         else:
             print("Opcion  no valida.")
