@@ -9,7 +9,6 @@ def validar_nombre(nombre):
 def validar_telefono(telefono):
         return len(telefono) == 9 and telefono.isdigit()
 
-
 # Leer clientes
 def leer_clientes():
     try: 
@@ -20,7 +19,6 @@ def leer_clientes():
     except FileNotFoundError:
          return []
     
- 
 # Verificar si el DNI ya existe
 def dni_existe(dni):
     clientes = leer_clientes()
@@ -30,9 +28,7 @@ def dni_existe(dni):
 
     if len(datos) == 4 and datos[0] == dni:
          return True
-
     return False
-
   
 # Registrar clientes 
 def registrar_cliente():
@@ -168,8 +164,6 @@ def eliminar_clientes():
                   print("Cliente eliminado correctamente.")
       else:
             print("Cliente no encontrado")
-
-
 
 # Menu de clientes
 def menu_clientes():
