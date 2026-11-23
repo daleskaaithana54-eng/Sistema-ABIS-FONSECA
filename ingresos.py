@@ -1,86 +1,194 @@
-def seleccionar_tipo_ingreso():
-    tipos = ["Sueldo", "Venta", "Otros"]
-
-    print("Tipos de ingreso:")
-    for i in range(len(tipos)):
-        print(f"{i + 1}. {tipos[i]}")
-
-    texto = input("Elige un tipo: ").strip()
-    while not texto.isdigit() or int(texto) < 1 or int(texto) > len(tipos):
-        texto = input("Opcion invalida. Elige un tipo: ").strip()
-    opcion = int(texto)
-
-    return tipos[opcion - 1]
+from archivos import leer_archivo, guardar_linea
 
 
-def registrar_ingreso(ingresos):
-    tipo = seleccionar_tipo_ingreso()
+def registrar_ingreso():
+    fecha = input("Fecha (dd/mm/aaaa): ")
+    descripcion = input("Descripcion del ingreso: ")
+    monto = input("Monto recibido: S/ ")
+    origen = input("Origen del ingreso: ")
 
-    texto_monto = input("Monto: S/ ").strip()
-    while not texto_monto.replace(".", "", 1).isdigit() or float(texto_monto) <= 0:
-        texto_monto = input("Monto invalido (debe ser un numero mayor que 0). Monto: S/ ").strip()
-    monto = float(texto_monto)
+    texto = fecha + ";" + descripcion + ";" + monto + ";" + origen
 
-    descripcion = input("Descripcion: ").strip()
-    while len(descripcion) == 0:
-        descripcion = input("La descripcion no puede estar vacia. Descripcion: ").strip()
+    guardar_linea("datos/ingresos.txt", texto)
 
-    ingreso = {"tipo": tipo, "monto": monto, "descripcion": descripcion}
-    ingresos.append(ingreso)
-    print("Ingreso registrado.")
+    print("Ingreso registrado correctamente.")
 
 
-def calcular_total_ingresos(ingresos):
-    total = 0
-    for ingreso in ingresos:
-        total = total + ingreso["monto"]
-    return total
+def mostrar_ingresos():
+    lineas = leer_archivo("Datos/ingresos.txt")
 
+    print("\n--- INGRESOS REGISTRADOS ---")
 
-def consultar_ingresos(ingresos):
-    if len(ingresos) == 0:
+    if len(lineas) == 0:
         print("No hay ingresos registrados.")
     else:
-        print("--- Ingresos registrados ---")
-        for i in range(len(ingresos)):
-            ingreso = ingresos[i]
-            print(f"{i + 1}. {ingreso['tipo']} - S/ {ingreso['monto']} - {ingreso['descripcion']}")
-        print(f"Total: S/ {calcular_total_ingresos(ingresos)}")
+        for linea in lineas:
+            datos = linea.strip().split(";")
 
+            print("Fecha:", datos[0],
+                  "| Descripcion:", datos[1],
+                  "| Monto: S/", datos[2],
+                  "| Origen:", datos[3])
 
-def buscar_ingreso(ingresos):
-    print("Buscar ingresos")
-    print("1. Por tipo")
-    print("2. Por descripcion")
-    criterio = input("Elige una opcion: ").strip()
-    while criterio != "1" and criterio != "2":
-        criterio = input("Opcion invalida. Elige 1 o 2: ").strip()
+def cargar_registros():
+    registros = []
 
+    for linea in leer_archivo("Datos/ingresos.txt"):
+        datos = linea.strip().split(";")
+        if len(datos) == 4:
+            registros.append(datos)
+
+    return registros
+
+def guardar_registros(registros):
+    with open("Datos/ingresos.txt", "w", encoding="utf-8") as archivo:
+        for datos in registros:
+            archivo.write(datos[0] + ";" + datos[1] + ";" + datos[2] + ";" + datos[3] + "\n")
+
+def a_monto(texto):
+    numero = texto.strip().replace(",", ".")
+    if numero.replace(".", "", 1).isdigit():
+        return float(numero)
+    return 0
+
+def mostrar_lista(registros):
+    if len(registros) == 0:
+        print("No hay ingresos para mostrar.")
+
+    for i in range(len(registros)):
+        datos = registros[i]
+        print(i + 1, ". Fecha:", datos[0], "| Descripcion:", datos[1],
+              "| Monto: S/", datos[2], "| Origen:", datos[3])
+
+def buscar_ingresos():
+    texto = input("Texto a buscar: ").strip().lower()
     encontrados = []
-    if criterio == "1":
-        tipo = seleccionar_tipo_ingreso()
-        for ingreso in ingresos:
-            if ingreso["tipo"] == tipo:
-                encontrados.append(ingreso)
+
+    for datos in cargar_registros():
+        if datos[1].lower().find(texto) != -1 or datos[3].lower().find(texto) != -1:
+            encontrados.append(datos)
+
+    print("\n--- RESULTADOS ---")
+    mostrar_lista(encontrados)
+
+def ordenar_ingresos():
+    registros = cargar_registros()
+    n = len(registros)
+
+    for pasada in range(n - 1):
+        for i in range(n - 1 - pasada):
+            if a_monto(registros[i][2]) < a_monto(registros[i + 1][2]):
+                temp = registros[i]
+                registros[i] = registros[i + 1]
+                registros[i + 1] = temp
+
+    print("\n--- DE MAYOR A MENOR ---")
+    mostrar_lista(registros)
+
+def modificar_ingreso():
+    registros = cargar_registros()
+
+    print("\n--- MODIFICAR INGRESO ---")
+    mostrar_lista(registros)
+
+    if len(registros) == 0:
+        return
+
+    numero = input("Numero de ingreso (0 para cancelar): ").strip()
+
+    while not (numero.isdigit() and int(numero) <= len(registros)):
+        numero = input("Numero no valido. Intenta de nuevo: ").strip()
+
+    numero = int(numero)
+
+    if numero == 0:
+        print("Modificacion cancelada.")
+        return
+
+    nuevo = input("Nuevo monto: S/ ")
+    if a_monto(nuevo) > 0:
+        registros[numero - 1][2] = nuevo.strip()
+        guardar_registros(registros)
+        print("Ingreso modificado correctamente.")
     else:
-        texto = input("Texto a buscar: ").strip().lower()
-        for ingreso in ingresos:
-            if ingreso["descripcion"].lower().find(texto) != -1:
-                encontrados.append(ingreso)
+        print("Monto no valido. No se hizo ningun cambio.")
 
-    if len(encontrados) == 0:
-        print("No se encontraron ingresos.")
+def eliminar_ingreso():
+    registros = cargar_registros()
+
+    print("\n--- ELIMINAR INGRESO ---")
+    mostrar_lista(registros)
+
+    if len(registros) == 0:
+        return
+
+    numero = input("Numero de ingreso (0 para cancelar): ").strip()
+
+    while not (numero.isdigit() and int(numero) <= len(registros)):
+        numero = input("Numero no valido. Intenta de nuevo: ").strip()
+
+    numero = int(numero)
+
+    if numero == 0:
+        print("Eliminacion cancelada.")
     else:
-        for ingreso in encontrados:
-            print(f"{ingreso['tipo']} - S/ {ingreso['monto']} - {ingreso['descripcion']}")
+        registros.pop(numero - 1)
+        guardar_registros(registros)
+        print("Ingreso eliminado correctamente.")
 
-    return encontrados
+def sumar_montos(registros, indice=0):
+    if indice == len(registros):
+        return 0
 
+    return a_monto(registros[indice][2]) + sumar_montos(registros, indice + 1)
 
-if __name__ == "__main__":
-    lista_ingresos = []
-    registrar_ingreso(lista_ingresos)
-    registrar_ingreso(lista_ingresos)
-    consultar_ingresos(lista_ingresos)
-    buscar_ingreso(lista_ingresos)
-    
+def mostrar_resumen():
+    registros = cargar_registros()
+
+    print("\n--- RESUMEN DE INGRESOS ---")
+
+    if len(registros) == 0:
+        print("No hay ingresos registrados.")
+        return
+
+    total = sumar_montos(registros)
+
+    print("Cantidad de ingresos:", len(registros))
+    print("Total recibido: S/", round(total, 2))
+    print("Promedio: S/", round(total / len(registros), 2))
+
+def menu_ingresos():
+    opcion = ""
+
+    while opcion != "0":
+        print("\n--- MENU DE INGRESOS ---")
+        print("1. Registrar ingreso")
+        print("2. Mostrar ingresos")
+        print("3. Buscar ingresos")
+        print("4. Ordenar por monto")
+        print("5. Modificar ingreso")
+        print("6. Eliminar ingreso")
+        print("7. Resumen de ingresos")
+        print("0. Volver")
+        
+
+        opcion = input("Selecciona una opcion: ")
+
+        if opcion == "1":
+            registrar_ingreso()
+        elif opcion == "2":
+            mostrar_ingresos()
+        elif opcion == "3":
+            buscar_ingresos()
+        elif opcion == "4":
+            ordenar_ingresos()
+        elif opcion == "5":
+            modificar_ingreso()
+        elif opcion == "6":
+            eliminar_ingreso()
+        elif opcion == "7":
+            mostrar_resumen()
+        elif opcion == "0":
+            print("Volviendo al menu principal.")
+        else:
+            print("Opcion no valida.")
