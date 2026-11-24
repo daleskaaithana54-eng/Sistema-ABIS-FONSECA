@@ -130,7 +130,7 @@ def actualizar_clientes():
                     print("El telefono debe tener 9 numeros.")
                     telefono = input("Nuevo telefono: ")
 
-              clientes[1] = dni + "," + nombre + "," + apellido + "," + telefono + "\n"
+              clientes[i] = dni + "," + nombre + "," + apellido + "," + telefono + "\n"
               encontrado = True
               break
 
