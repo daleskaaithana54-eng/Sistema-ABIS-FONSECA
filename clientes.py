@@ -23,7 +23,7 @@ def leer_clientes():
 def dni_existe(dni):
     clientes = leer_clientes()
 
-    for liena in clientes:
+    for linea in clientes:
      datos = datos.strip().split(",")
 
     if len(datos) == 4 and datos[0] == dni:
