@@ -108,7 +108,7 @@ def contar_clientes():
 def actualizar_clientes():
         dni = input("Ingrese DNI del cliente: ")  
         clientes = leer_clientes()
-        encotrado = False       
+        encontrado = False       
 
 
         for i in range(len(clientes)):
