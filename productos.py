@@ -91,21 +91,27 @@ def mostrar_productos_por_precio():
         print("Codigo:", producto[0],
               "|producto:", producto[1],
               "|precio: S/", producto[2])
+
 def buscar_por_nombre():
     nombre_buscar = input("Nombre del producto: ").strip().lower()
-    lineas = leer_archivo("Datos/productos.txt")
-    encontrado = False
+
+    if nombre_buscar == "":
+        print("Ingrese un nombre para buscar.")
+        return
     
+    lineas = leer_archivo("Datos/productos.txt")
+    encontrados = False
+
     for linea in lineas:
         datos = linea.strip().split(";")
 
         if nombre_buscar in datos[1].lower():
             print("Codigo:", datos[0])
             print("producto:", datos[1])
-            print("precio: S/", datos[2])
-            encontrado = True
+            print("precio: S/", datos[2])   
+            encontrados = True
 
-    if encontrado == False:
+    if encontrados == False:
         print("Producto no encontrado.")
 
 def buscar_producto():
@@ -151,8 +157,8 @@ def agregar_producto():
         print("El precio debe ser mayor que cero.")
         return
 
-    texto = codigo + ";" + nombre + ";" + str(precio_numero)
-
+    texto = codigo + ";" + nombre + ";" + format(precio_numero, ".2f")
+    
     guardar_linea("Datos/productos.txt", texto)
 
     print("Producto registrado correctamente.")
@@ -183,7 +189,7 @@ def actualizar_producto():
                     print("El precio debe ser mayor que cero.")
                     return
 
-                nuevos.append(codigo + ";" + nombre + ";" + str(precio_numero))
+                nuevos.append(codigo + ";" + nombre + ";" + format(precio_numero, ".2f"))
                 encontrado = True
             else:
                 nuevos.append(linea.strip())
