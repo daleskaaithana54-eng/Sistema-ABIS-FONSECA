@@ -1,5 +1,4 @@
 # Validaciones
-
 def validar_dni(dni):
         return len(dni) == 8 and dni.isdigit()
 
